@@ -12,10 +12,12 @@ public class ObstacleSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnObstacles();
+        // disabled for now. press E on the cube to spawn obstacles. 
+        // had to make the SpawnObstacles method public
+        // SpawnObstacles();
     }
 
-    void SpawnObstacles()
+    public void SpawnObstacles()
     {
         for (int i = 0; i < numberOfObstacles; i++)
         {
