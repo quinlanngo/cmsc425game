@@ -939,7 +939,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1138060155}
   m_Father: {fileID: 1047375625}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
@@ -968,8 +969,6 @@ GameObject:
   - component: {fileID: 1047375622}
   - component: {fileID: 1047375621}
   - component: {fileID: 1047375620}
-  - component: {fileID: 1047375626}
-  - component: {fileID: 1047375619}
   - component: {fileID: 1047375627}
   - component: {fileID: 1047375629}
   - component: {fileID: 1047375628}
@@ -981,18 +980,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1047375619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047375618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94e48bca5eb2e2941bc208138e756927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1047375620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1005,9 +992,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed1b0d81f5fe5742ad33d014480342a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 5
-  gravity: -9.81
+  moveSpeed: 8
+  jumpForce: 3
+  gravity: -20
+  cam: {fileID: 963194227}
+  xSensitivity: 500
+  ySensitivity: 500
+  sphereRadius: 0.5
+  groundCheckDistance: 1
+  isGrounded: 0
 --- !u!143 &1047375621
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1121,24 +1114,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 963194228}
-  - {fileID: 1138060155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1047375626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047375618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dce984b236f12f488ec239c0bcc29f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 963194227}
-  xSensitivity: 100
-  ySensitivity: 100
 --- !u!114 &1047375627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1535,7 +1512,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1047375625}
+    m_TransformParent: {fileID: 963194228}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalScale.x
@@ -1555,7 +1532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.193
+      value: -0.36700004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1567,7 +1544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1575,7 +1552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: faf7b6f60c4d0804287b259e9a7e9a26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1823,6 +1800,12 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 5
   gravity: -9.81
+  cam: {fileID: 0}
+  xSensitivity: 20
+  ySensitivity: 20
+  sphereRadius: 0.5
+  groundCheckDistance: 1
+  isGrounded: 0
 --- !u!143 &1805284219
 CharacterController:
   m_ObjectHideFlags: 0

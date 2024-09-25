@@ -21,7 +21,7 @@ public class GunController : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         // Get the camera component from the PlayerLook script
-        cam = GetComponent<PlayerLook>().cam;
+        cam = GetComponent<PlayerController>().cam;
     }
 
     // shoot method to shoot a raycast from the camera
