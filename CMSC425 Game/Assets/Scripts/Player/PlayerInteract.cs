@@ -27,12 +27,13 @@ public class PlayerInteract : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
         RaycastHit hitinfo;
         if (Physics.Raycast(ray, out hitinfo, interactDistance, mask)) {
-            Interactable interactable = hitinfo.collider.GetComponent<Interactable>();
+            IInteractable interactable = hitinfo.collider.GetComponent<IInteractable>();
+            Debug.Log("Looking at " + interactable.ObjectName);
             if (interactable != null) { // Check if the object is interactable
-                playerUI.updateText(hitinfo.collider.GetComponent<Interactable>().promtmessage); // update the text with the prompt message
+                playerUI.updateText(interactable.PromptMessage); // update the text with the prompt message
                 // Inorder to access _controlMap from the InputManager script, I had to make it a public variable
                 if (Input.GetKeyDown(KeyCode.E)) {
-                    interactable.BaseInteract();  // trigger the interact method of the interactable object
+                    interactable.Interact();  // trigger the interact method of the interactable object
                 }
             }
         }

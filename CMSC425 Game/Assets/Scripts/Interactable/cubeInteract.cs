@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class cubeInteract : Interactable
+public class CubeInteract : IInteractable
 {
+    
     // Drag the obstacle spawner in the following field in the inspector
     [SerializeField] 
     private ObstacleSpawner obstacleSpawner;
-    // overrides the Interact method from the Interactable class
-    protected override void Interact() {
-        obstacleSpawner.SpawnObstacles();
-        Debug.Log("Interacting with cube");
 
+    public void Start()
+    {
+        Initialize();
+    }
+
+    public override void Interact()
+    {
+        base.Interact();
+        obstacleSpawner.SpawnObstacles();
     }
 }

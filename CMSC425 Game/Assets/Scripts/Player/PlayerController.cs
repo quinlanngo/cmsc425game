@@ -3,13 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    
-
-
-   
-
     private CharacterController characterController;
-    private GunController _gunController;
 
 
     //Variables for modifying and storing player movement information
@@ -43,8 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         //Get the component references for the controllers
         characterController = GetComponent<CharacterController>();
-        _gunController = GetComponent<GunController>();
-}
+    }
 
     //ALL INPUT SHOULD GO HERE
     private void Update()
@@ -66,9 +59,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity); //executes jump force with the kinematic equation
         }
-        if (Input.GetMouseButtonDown(0)) _gunController.Shoot(); //shoots if the player clicks
     }
-
 
     //ALL PHYSICS STUFF SHOULD GO HERE
     private void FixedUpdate()
@@ -84,9 +75,6 @@ public class PlayerController : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
 
     }
-
-
-
 
     public void HandleLook(Vector2 input)
     {

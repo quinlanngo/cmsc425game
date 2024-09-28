@@ -7,6 +7,8 @@ public class PlayerUi : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI promptText; // Text to display the score
+    [SerializeField]
+    private TextMeshProUGUI bullets; // Show how many bullets.
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,10 @@ public class PlayerUi : MonoBehaviour
     // Update the text
     public void updateText(string promptMessage) {
         promptText.text = promptMessage;
+    }
+
+    public void UpdateAmmoText(int bulletsLeft, int magazineSize) {
+        bullets.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
     }
 
 }
