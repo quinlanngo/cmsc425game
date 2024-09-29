@@ -50,7 +50,7 @@ public class GunController : IInventoryItem
     }
 
     // Start is called before the first frame update
-    void Awake() {
+    private void Awake() {
         // Get the camera component from the PlayerLook script
         inventory = FindObjectOfType<PlayerInventory>();
         Initialize();
@@ -58,7 +58,7 @@ public class GunController : IInventoryItem
         readyToShoot = true;
     }
 
-    void Update() {
+    private void Update() {
         input();
         text.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
     }
