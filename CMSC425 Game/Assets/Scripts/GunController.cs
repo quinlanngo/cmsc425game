@@ -17,6 +17,9 @@ public class GunController : IInventoryItem
     private bool allowButtonHold;
     private int bulletsLeft, bulletsShot;
 
+
+    private bool isEquipped;
+
     private bool shooting, readyToShoot, reloading;
     [SerializeField]
     private Camera cam;
@@ -33,6 +36,15 @@ public class GunController : IInventoryItem
     private TextMeshProUGUI text;
     private PlayerInventory inventory;
 
+    public enum Element
+    {
+        Fire,
+        Ice,
+        Air,
+        Lightning
+    }
+    public Element currElement = Element.Fire;
+
     private void input() {
         if (allowButtonHold) {
             shooting = Input.GetKey(KeyCode.Mouse0);
@@ -47,15 +59,22 @@ public class GunController : IInventoryItem
             bulletsShot = bulletsPerTap;
             Use();
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            SwitchElement();
+        }
     }
 
     // Start is called before the first frame update
     private void Awake() {
         // Get the camera component from the PlayerLook script
         inventory = FindObjectOfType<PlayerInventory>();
+        
         Initialize();
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        
     }
 
     private void Update() {
@@ -82,17 +101,29 @@ public class GunController : IInventoryItem
         if (Physics.Raycast(cam.transform.position, direction, out hit, range)) {
             Debug.Log("Hit object: " + hit.transform.name);
 
+            //gets the transform of the hit object, and attempts to get its ElementalObject component
+            ElementalObject elementalObject = hit.transform.GetComponent<ElementalObject>();
+            
+            //if the object is an elemental object, it will execute whatever function the object has.
+            if (elementalObject != null)
+            {
+                Debug.Log("Hitting " + hit.transform.name + "with " + currElement + ".");
+                elementalObject.InteractWithElement(currElement, hit.point, hit.normal);
+            }
+
             // implement take damage in enemy class.
             // set tag to Enemy
             // if (hit.collider.CompareTag("Enemy")) {
-                // hit.collider.GetComponent<Enemy_class>().TakeDamage(damage);
+            // hit.collider.GetComponent<Enemy_class>().TakeDamage(damage);
             // }
 
             // changes color of the hit object
+
+            /*
             Renderer renderer = hit.transform.GetComponent<Renderer>();
             if (renderer != null) {
                 renderer.material.color = GetNextColor();
-            }
+            }*/
         }
         else {
             Debug.Log("No object hit");
@@ -106,6 +137,22 @@ public class GunController : IInventoryItem
         if (bulletsShot > 0 && bulletsLeft > 0) {
             Invoke("Use", timeBetweenShots);
         }
+    }
+
+    //Switches the current element. Currently doesn't have a GUI representation
+    private void SwitchElement()
+    {
+   
+        Element[] elements = (Element[])System.Enum.GetValues(typeof(Element));
+
+        int currentIndex = System.Array.IndexOf(elements, currElement);
+        currentIndex = (currentIndex + 1) % elements.Length;
+        currElement = elements[currentIndex];
+
+     
+        print("Switched to Element: " + currElement);
+
+
     }
 
     private void Reload() {
@@ -136,4 +183,6 @@ public class GunController : IInventoryItem
     public override void RemoveFromInventory() {
         inventory.RemoveItem(this);
     }
+
+ 
 }
