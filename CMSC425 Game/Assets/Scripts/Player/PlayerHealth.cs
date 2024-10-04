@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 1;  // Maximum player health
-    private int currentHealth;   // Current player health
+    public int maxHealth = 100;  // Maximum player health
+    private float currentHealth;   // Current player health
     public Slider healthBar;     // Health bar UI element
 
     void Start()
@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
 
