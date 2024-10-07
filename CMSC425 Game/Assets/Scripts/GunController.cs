@@ -17,9 +17,6 @@ public class GunController : IInventoryItem
     private bool allowButtonHold;
     private int bulletsLeft, bulletsShot;
 
-
-    private bool isEquipped;
-
     private bool shooting, readyToShoot, reloading;
     [SerializeField]
     private Camera cam;
@@ -32,9 +29,12 @@ public class GunController : IInventoryItem
         Color.yellow, 
         Color.magenta 
     };
+    
+    //[SerializeField]
+    //private TextMeshProUGUI ammoText;
     [SerializeField]
-    private TextMeshProUGUI text;
-    private PlayerInventory inventory;
+    private pickUpController pickUpController;
+    private PlayerUi playerUI;
 
     public enum Element
     {
@@ -66,25 +66,33 @@ public class GunController : IInventoryItem
         }
     }
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update    
+    public void Start() {
+        playerUI = GetComponentInParent<PlayerUi>();
+    }
+
     private void Awake() {
-        // Get the camera component from the PlayerLook script
-        inventory = FindObjectOfType<PlayerInventory>();
-        
         Initialize();
         bulletsLeft = magazineSize;
         readyToShoot = true;
-        
     }
 
     private void Update() {
         input();
-        text.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
+        if(pickUpController.slotFull == true) {
+            //ammoText.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
+            playerUI.UpdateAmmoText(bulletsLeft, magazineSize);
+        } else {
+            playerUI.UpdateAmmoText(0, 0);
+            //ammoText.SetText(string.Empty);
+        }
     }
 
     public override void Interact() {
         base.Interact();
-        AddToInventory();
+        if(pickUpController.equipped == false && pickUpController.slotFull == false) { 
+            pickUpController.PickUp();
+        }
     }
 
     // shoot method to shoot a raycast from the camera
@@ -175,14 +183,4 @@ public class GunController : IInventoryItem
         Color nextColor = hitColors[Random.Range(0, 4)];
         return nextColor;
     }
-
-    public override void AddToInventory() {
-        inventory.AddItem(this);
-    }
-
-    public override void RemoveFromInventory() {
-        inventory.RemoveItem(this);
-    }
-
- 
 }

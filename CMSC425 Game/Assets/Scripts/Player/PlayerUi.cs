@@ -22,7 +22,11 @@ public class PlayerUi : MonoBehaviour
     }
 
     public void UpdateAmmoText(int bulletsLeft, int magazineSize) {
-        bullets.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
+        if(bulletsLeft == 0 && magazineSize == 0) {
+            bullets.SetText(string.Empty);
+        } else {
+            bullets.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
+        }
     }
 
 }

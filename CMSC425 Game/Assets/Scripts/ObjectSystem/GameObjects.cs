@@ -44,6 +44,4 @@ public abstract class IInventoryItem : IInteractable
     public virtual void Use() {
         Debug.Log("Used " + ObjectName);
     }
-    public abstract void AddToInventory();
-    public abstract void RemoveFromInventory();
 }
