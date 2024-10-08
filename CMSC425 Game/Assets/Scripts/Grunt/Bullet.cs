@@ -29,9 +29,8 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Get the PlayerHealth component and apply damage
-            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-
-            if (playerHealth != null)
+            
+            if (collision.gameObject.TryGetComponent<PlayerHealth>(out var playerHealth))
             {
                 Debug.Log("Player Hit");
                 playerHealth.TakeDamage(bulletDamage);

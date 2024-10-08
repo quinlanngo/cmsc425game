@@ -6,10 +6,12 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;  // Maximum player health
     private float currentHealth;   // Current player health
     public Slider healthBar;     // Health bar UI element
+    public GameObject DeathText;
 
     void Start()
     {
         currentHealth = maxHealth;
+        DeathText.SetActive(false);
         UpdateHealthBar();
     }
 
@@ -37,7 +39,8 @@ public class PlayerHealth : MonoBehaviour
     {
         // Handle player death (e.g., show death screen, disable player controls)
         Debug.Log("Player has died.");
-        gameObject.SetActive(false);  // Disable the player
+        DeathText.SetActive(true);
+        //gameObject.SetActive(false);  // Disable the player
         // RespawnManager.instance.RespawnPlayer();
     }
 }

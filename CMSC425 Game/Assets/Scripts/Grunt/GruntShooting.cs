@@ -8,9 +8,9 @@ public class GruntShooting : MonoBehaviour
     public float fireRange = 10f;       // Distance at which the enemy starts shooting
     public float fireRate = 1f;         // Time between shots
     public float bulletSpeed = 20f;     // Speed of the bullets
+    public Transform player;   
     private float fireTimer = 0f;       // Timer to track fire rate
 
-    public Transform player;   
 
     void Start()
     {
