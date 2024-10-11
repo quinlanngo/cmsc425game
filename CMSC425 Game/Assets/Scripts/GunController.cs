@@ -66,11 +66,6 @@ public class GunController : IInventoryItem
         }
     }
 
-    // Start is called before the first frame update    
-    public void Start() {
-        playerUI = GetComponentInParent<PlayerUi>();
-    }
-
     private void Awake() {
         Initialize();
         bulletsLeft = magazineSize;
@@ -78,6 +73,7 @@ public class GunController : IInventoryItem
     }
 
     private void Update() {
+        playerUI = GetComponentInParent<PlayerUi>();
         input();
         if(pickUpController.slotFull == true) {
             //ammoText.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
