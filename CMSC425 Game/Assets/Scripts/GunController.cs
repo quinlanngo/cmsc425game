@@ -32,8 +32,8 @@ public class GunController : IInventoryItem
     
     //[SerializeField]
     //private TextMeshProUGUI ammoText;
-    [SerializeField]
-    private pickUpController pickUpController;
+//    [SerializeField]
+//    private pickUpController pickUpController;
     private PlayerUi playerUI;
 
     public enum Element
@@ -86,9 +86,9 @@ public class GunController : IInventoryItem
 
     public override void Interact() {
         base.Interact();
-        if(pickUpController.equipped == false && pickUpController.slotFull == false) { 
-            pickUpController.PickUp();
-        }
+//        if(pickUpController.equipped == false && pickUpController.slotFull == false) { 
+//            pickUpController.PickUp();
+//        }
     }
 
     // shoot method to shoot a raycast from the camera

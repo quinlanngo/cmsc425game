@@ -17,7 +17,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        if (currentHealth <= maxHealth && currentHealth - damage <= maxHealth) {
+            currentHealth -= damage;
+        } else if (currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        } 
 
         UpdateHealthBar();
 

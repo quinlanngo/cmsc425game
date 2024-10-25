@@ -4,70 +4,81 @@ using UnityEngine;
 
 public class pickUpController : MonoBehaviour
 {
-    public GunController gunController;
     public Rigidbody rb;
     public Collider col;
-    public Transform player, gunContainer, Cam;
-    public float dropForwardForce, dropUpwardForce;
+    public Transform player, itemContainer, cam;
+    public float dropForwardForce = 10f;
+    public float dropUpwardForce = 2f;
+    
+    // List of components to enable/disable when picked up
+    public MonoBehaviour[] componentsToToggle;
+    
     public bool equipped;
     public static bool slotFull;
 
     private void Start() {
-        if (!equipped) {
-            gunController.enabled = false;
-            rb.isKinematic = false;
-            col.isTrigger = false;
-        } if(equipped) {
-            gunController.enabled = true;
-            rb.isKinematic = true;
-            col.isTrigger = true;
-            slotFull = true;
-        }
+        SetItemState(equipped);
     }
 
-    void Update() {
+    private void Update()
+    {
         if (equipped && slotFull && Input.GetKeyDown(KeyCode.G)) {
             Drop();
         }
     }
 
+    private void SetItemState(bool isEquipped) {
+        // Toggle all specified components
+        if (componentsToToggle != null) {
+            foreach (var component in componentsToToggle) {
+                if (component != null) {
+                    component.enabled = isEquipped;
+                }
+            }
+        }
+
+        // Set physics state
+        rb.isKinematic = isEquipped;
+        col.isTrigger = isEquipped;
+        
+        // Update global state
+        if (isEquipped) {
+            slotFull = true;
+        }
+    }
+
     public void PickUp() {
         equipped = true;
-        slotFull = true;
-
-        // Make the weapon a child of the gunContainer
-        transform.SetParent(gunContainer);
-
-        // Reset the position and rotation of the weapon
+        
+        // Parent to container
+        transform.SetParent(itemContainer);
+        
+        // Reset transform
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
-        transform.localScale = Vector3.one;
-
-        // Make the weapon kinematic and disable the collider
-        rb.isKinematic = true;
-        col.isTrigger = true;
-        gunController.enabled = true;
-    } 
+        //transform.localScale = Vector3.one;
+        
+        // Update component states
+        SetItemState(true);
+    }
 
     public void Drop() {
         equipped = false;
         slotFull = false;
-
-        // Set the parent to null
+        
+        // Remove parent
         transform.SetParent(null);
-
-        // Make the weapon not kinematic and enable the collider
-        rb.isKinematic = false;
-        col.isTrigger = false;
-        gunController.enabled = false;
-
-        // Add force to the weapon
+        
+        // Update component states
+        SetItemState(false);
+        
+        // Add forces
         rb.velocity = player.GetComponent<Rigidbody>().velocity;
-        rb.AddForce(Cam.forward * dropForwardForce, ForceMode.Impulse);
-        rb.AddForce(Cam.up * dropUpwardForce, ForceMode.Impulse);
+        rb.AddForce(cam.forward * dropForwardForce, ForceMode.Impulse);
+        rb.AddForce(cam.up * dropUpwardForce, ForceMode.Impulse);
+        
         // Add random rotation
         float random = Random.Range(-1f, 1f);
         rb.AddTorque(new Vector3(random, random, random) * 10);
     }
-
 }

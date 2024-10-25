@@ -177,7 +177,6 @@ MonoBehaviour:
   bulletsPerTap: 6
   allowButtonHold: 0
   cam: {fileID: 963194227}
-  pickUpController: {fileID: 75538641}
   currElement: 0
 --- !u!114 &75538641
 MonoBehaviour:
@@ -191,14 +190,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 75538640}
   rb: {fileID: 75538642}
   col: {fileID: 75538632}
   player: {fileID: 1047375625}
-  gunContainer: {fileID: 895512367}
-  Cam: {fileID: 963194228}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
   dropForwardForce: 1.5
   dropUpwardForce: 1.5
+  componentsToToggle:
+  - {fileID: 75538640}
   equipped: 0
 --- !u!54 &75538642
 Rigidbody:
@@ -773,6 +773,202 @@ MonoBehaviour:
   Name: 
   Message: 
   obstacleSpawner: {fileID: 705623734}
+--- !u!1 &586557831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 586557839}
+  - component: {fileID: 586557838}
+  - component: {fileID: 586557837}
+  - component: {fileID: 586557836}
+  - component: {fileID: 586557835}
+  - component: {fileID: 586557834}
+  - component: {fileID: 586557833}
+  - component: {fileID: 586557832}
+  m_Layer: 7
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &586557832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbf5b9f708bb1d43a2110532b0c5e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  Message: 
+  healthToGive: -20
+--- !u!114 &586557833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 586557835}
+  col: {fileID: 586557834}
+  player: {fileID: 1047375625}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
+  dropForwardForce: 2
+  dropUpwardForce: 2
+  componentsToToggle:
+  - {fileID: 586557832}
+  equipped: 0
+--- !u!65 &586557834
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &586557835
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
+--- !u!136 &586557836
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &586557837
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &586557838
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &586557839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586557831}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.91, y: 0.31, z: 2.712}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1262,6 @@ MonoBehaviour:
   bulletsPerTap: 1
   allowButtonHold: 0
   cam: {fileID: 963194227}
-  pickUpController: {fileID: 1138060160}
   currElement: 0
 --- !u!65 &1138060159
 BoxCollider:
@@ -1101,14 +1296,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 1138060158}
   rb: {fileID: 1138060161}
   col: {fileID: 1138060159}
   player: {fileID: 1047375625}
-  gunContainer: {fileID: 895512367}
-  Cam: {fileID: 963194228}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
   dropForwardForce: 2
   dropUpwardForce: 2
+  componentsToToggle:
+  - {fileID: 1138060158}
   equipped: 0
 --- !u!54 &1138060161
 Rigidbody:
@@ -1467,14 +1663,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 1713669194}
   rb: {fileID: 1713669195}
   col: {fileID: 1713669196}
   player: {fileID: 1047375625}
-  gunContainer: {fileID: 895512367}
-  Cam: {fileID: 963194228}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
   dropForwardForce: 1.5
   dropUpwardForce: 1.5
+  componentsToToggle:
+  - {fileID: 1713669194}
   equipped: 0
 --- !u!114 &1713669194
 MonoBehaviour:
@@ -1500,7 +1697,6 @@ MonoBehaviour:
   bulletsPerTap: 2
   allowButtonHold: 1
   cam: {fileID: 963194227}
-  pickUpController: {fileID: 1713669193}
   currElement: 0
 --- !u!54 &1713669195
 Rigidbody:
@@ -1780,14 +1976,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 1825979173}
   rb: {fileID: 1825979174}
   col: {fileID: 1825979175}
   player: {fileID: 1047375625}
-  gunContainer: {fileID: 895512367}
-  Cam: {fileID: 963194228}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
   dropForwardForce: 1
   dropUpwardForce: 1
+  componentsToToggle:
+  - {fileID: 1825979173}
   equipped: 0
 --- !u!114 &1825979173
 MonoBehaviour:
@@ -1813,7 +2010,6 @@ MonoBehaviour:
   bulletsPerTap: 0
   allowButtonHold: 0
   cam: {fileID: 963194227}
-  pickUpController: {fileID: 1825979172}
   currElement: 0
 --- !u!54 &1825979174
 Rigidbody:
@@ -1953,14 +2149,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 1885455866}
   rb: {fileID: 1885455867}
   col: {fileID: 1885455868}
   player: {fileID: 1047375625}
-  gunContainer: {fileID: 895512367}
-  Cam: {fileID: 963194228}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
   dropForwardForce: 2
   dropUpwardForce: 2
+  componentsToToggle:
+  - {fileID: 1885455866}
   equipped: 0
 --- !u!114 &1885455866
 MonoBehaviour:
@@ -1986,7 +2183,6 @@ MonoBehaviour:
   bulletsPerTap: 4
   allowButtonHold: 1
   cam: {fileID: 963194227}
-  pickUpController: {fileID: 1885455865}
   currElement: 0
 --- !u!54 &1885455867
 Rigidbody:
@@ -2310,7 +2506,6 @@ MonoBehaviour:
   bulletsPerTap: 0
   allowButtonHold: 0
   cam: {fileID: 963194227}
-  pickUpController: {fileID: 2139832811}
   currElement: 0
 --- !u!114 &2139832811
 MonoBehaviour:
@@ -2324,14 +2519,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dac6866bc5acfe40a7a16ff4ba38f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 2139832810}
   rb: {fileID: 2139832812}
   col: {fileID: 2139832801}
   player: {fileID: 1047375625}
-  gunContainer: {fileID: 895512367}
-  Cam: {fileID: 963194228}
+  itemContainer: {fileID: 895512367}
+  cam: {fileID: 963194228}
   dropForwardForce: 1
   dropUpwardForce: 1
+  componentsToToggle:
+  - {fileID: 2139832810}
   equipped: 0
 --- !u!54 &2139832812
 Rigidbody:
@@ -2373,13 +2569,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194228}
     - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 963194228}
+    - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1047375625}
     - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+      propertyPath: fpCamera
+      value: 
+      objectReference: {fileID: 963194228}
+    - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
       propertyPath: gunContainer
       value: 
       objectReference: {fileID: 895512367}
+    - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+      propertyPath: itemContainer
+      value: 
+      objectReference: {fileID: 895512367}
+    - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+      propertyPath: componentsToToggle.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2716774256694510351, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+      propertyPath: componentsToToggle.Array.data[0]
+      value: 
+      objectReference: {fileID: 825680251585936292}
     - target: {fileID: 6055800862714065776, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
       propertyPath: cam
       value: 
@@ -2433,6 +2649,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+--- !u!114 &825680251585936292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6055800862714065776, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
+  m_PrefabInstance: {fileID: 825680251585936291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a99bfb80c03c2419cc01522e61f3c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5287963531781440755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2498,6 +2725,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1288986185210843594, guid: 3079936a026abb046a609a3ae7167597, type: 3}
+      propertyPath: m_Name
+      value: ItemContainer
+      objectReference: {fileID: 0}
     - target: {fileID: 2227788109393789824, guid: 3079936a026abb046a609a3ae7167597, type: 3}
       propertyPath: items.Array.data[0]
       value: 
@@ -2641,3 +2872,4 @@ SceneRoots:
   - {fileID: 81801926}
   - {fileID: 1549030114}
   - {fileID: 8803697737811020885}
+  - {fileID: 586557839}

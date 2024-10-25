@@ -7,7 +7,7 @@ public class ShootingPuzzle : MonoBehaviour
 
     public GameObject glassCapsule;
     private int[] buttonOrder = new int[5];
-    private Button[] buttons = new Button[5];
+    //private Button[] buttons = new Button[5];
  
 
 
