@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
 
     #region Collision Detection
     [SerializeField] private float sphereRadius = 0.5f; //radius of the spherecast for the groundcheck
-    [SerializeField] private float groundCheckDistance = 1f; 
+    [SerializeField] private float groundCheckDistance = 1f;
+    [SerializeField] private LayerMask jumpableGround;
     public bool isGrounded; //whether or not the player is touching the ground
     #endregion
 
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
        
 
         //sphere cast from the player's position downwards. If the sphere intersects with the ground, then the player is grounded.
-        isGrounded = Physics.SphereCast(transform.position, sphereRadius, Vector3.down, out RaycastHit hitInfo, groundCheckDistance);
+        isGrounded = Physics.SphereCast(transform.position, sphereRadius, Vector3.down, out RaycastHit hitInfo, groundCheckDistance, jumpableGround);
 
         HandleLook(mouseInput); //handle camera movement
         PlayerMove(movementInput); //handle movement input
