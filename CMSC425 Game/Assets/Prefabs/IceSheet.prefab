@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6461234091882019492}
   - component: {fileID: 2719761575210791765}
   - component: {fileID: 8829513358130482489}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ice Sheet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2768767682806034943}
   - component: {fileID: 118834390345982894}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: IceSheet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

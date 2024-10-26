@@ -1,107 +1,76 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class MovableObject : ElementalObject
 {
-    public float trajectoryForceMultiplier = 10f;  // Force applied when the object is launched
-    public LineRenderer trajectoryLineRenderer;    // Line renderer to visualize the trajectory
-    public int trajectoryPointsCount = 30;         // Number of points to display in the trajectory
+    public float launchForce = 20f;    // Force applied to the object
+    public float launchAngle = 40f;    // Angle in degrees to launch away
+    public int lineResolution = 20;    // Resolution of the line (number of points)
+    public float timeStep = 0.1f;      // Time interval for each point in the line
 
-    private bool isHovered;                        // Whether the object is being hovered over
-    private bool isTrajectoryVisible = false;      // Track if the trajectory is visible
-    private Vector3 currentForceDirection;         // Direction the object will be launched in
+    private LineRenderer lineRenderer;
+    private bool isHovering = false;
 
-    // Method to interact with the object when hit by a bullet
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = lineResolution;
+        lineRenderer.enabled = false; // Hide the line initially
+    }
+
+    void OnMouseEnter()
+    {
+        isHovering = true;
+        lineRenderer.enabled = true;
+        ShowProjectilePath();
+    }
+
+    void OnMouseExit()
+    {
+        isHovering = false;
+        lineRenderer.enabled = false;
+    }
+
+    // Method to launch the object at an angle relative to the hit normal
+    public void LaunchObjectAway(Vector3 hitPoint, Vector3 hitNormal)
+    {
+        Vector3 launchDirection = new Vector3(-hitNormal.x, Mathf.Sin(Mathf.Deg2Rad * launchAngle), -hitNormal.z).normalized;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
+        }
+    }
+
+    // Method to show the projectile path
+    private void ShowProjectilePath()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 launchDirection = Quaternion.Euler(launchAngle, 0, 0) * Vector3.forward;
+        launchDirection *= launchForce;
+
+        Vector3 velocity = launchDirection;
+        Vector3 position = startPos;
+
+        lineRenderer.positionCount = lineResolution;
+        List<Vector3> points = new List<Vector3>();
+
+        for (int i = 0; i < lineResolution; i++)
+        {
+            points.Add(position);
+            position += velocity * timeStep;
+            velocity += Physics.gravity * timeStep;
+        }
+
+        lineRenderer.SetPositions(points.ToArray());
+    }
+
     public override void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal)
     {
         if (element == GunController.Element.Air)
         {
-            // Launch the object with the direction opposite to where the player is aiming
-            LaunchObject(hitPoint);
+            LaunchObjectAway(hitPoint, hitNormal);
         }
-    }
-
-    // Launch the object by applying force based on the aiming direction
-    private void LaunchObject(Vector3 hitPoint)
-    {
-        // Calculate the direction from the object to the hit point
-        Vector3 directionToHitPoint = (hitPoint - transform.position).normalized;
-
-        // Reverse the direction to aim on the opposite side
-        currentForceDirection = -directionToHitPoint;
-
-        Rigidbody rb = GetComponent<Rigidbody>();
-
-        // Apply force to the object to launch it
-        rb.AddForce(currentForceDirection * trajectoryForceMultiplier, ForceMode.Impulse);
-
-        // Optionally clear the trajectory display after launching
-        ClearTrajectory();
-    }
-
-    // Display the trajectory if hovering over the object and using Air element
-    void Update()
-    {
-        if (isHovered)
-        {
-            if (!isTrajectoryVisible)
-            {
-                ShowTrajectory();
-                isTrajectoryVisible = true;
-            }
-
-            // Optionally hide the trajectory if not hovering or using a different element
-            if (!isHovered)
-            {
-                ClearTrajectory();
-            }
-        }
-        else if (isTrajectoryVisible)
-        {
-            ClearTrajectory();
-        }
-    }
-
-    // Display the calculated trajectory
-    private void ShowTrajectory()
-    {
-        Vector3 startPosition = transform.position;
-        Vector3 initialVelocity = currentForceDirection * trajectoryForceMultiplier;
-
-        trajectoryLineRenderer.positionCount = trajectoryPointsCount;
-
-        for (int i = 0; i < trajectoryPointsCount; i++)
-        {
-            float time = i * 0.1f;  // Time intervals between points
-            Vector3 point = CalculateTrajectoryPoint(startPosition, initialVelocity, time);
-            trajectoryLineRenderer.SetPosition(i, point);
-        }
-    }
-
-    // Calculate the point in the trajectory
-    private Vector3 CalculateTrajectoryPoint(Vector3 startPosition, Vector3 initialVelocity, float time)
-    {
-        // Standard physics equation for projectile motion with gravity
-        Vector3 position = startPosition + initialVelocity * time + 0.5f * Physics.gravity * time * time;
-        return position;
-    }
-
-    // Clear the trajectory display
-    private void ClearTrajectory()
-    {
-        trajectoryLineRenderer.positionCount = 0;
-        isTrajectoryVisible = false;
-    }
-
-    // Trigger when the mouse is hovering over the object
-    private void OnMouseEnter()
-    {
-        isHovered = true;
-    }
-
-    // Trigger when the mouse stops hovering over the object
-    private void OnMouseExit()
-    {
-        isHovered = false;
-        ClearTrajectory();
     }
 }
