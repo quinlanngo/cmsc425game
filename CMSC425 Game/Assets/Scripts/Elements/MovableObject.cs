@@ -18,7 +18,7 @@ public class MovableObject : ElementalObject
         lineRenderer.positionCount = lineResolution;
         lineRenderer.enabled = false; // Hide the line initially
     }
-
+    /*
     void OnMouseEnter()
     {
         isHovering = true;
@@ -30,7 +30,7 @@ public class MovableObject : ElementalObject
     {
         isHovering = false;
         lineRenderer.enabled = false;
-    }
+    }*/
 
     // Method to launch the object at an angle relative to the hit normal
     public void LaunchObjectAway(Vector3 hitPoint, Vector3 hitNormal)
