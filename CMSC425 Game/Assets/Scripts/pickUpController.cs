@@ -7,24 +7,16 @@ public class pickUpController : MonoBehaviour
     public Rigidbody rb;
     public Collider col;
     public Transform player, itemContainer, cam;
-    public float dropForwardForce = 10f;
-    public float dropUpwardForce = 2f;
+    //public float dropForwardForce = 10f;
+    //public float dropUpwardForce = 2f;
     
     // List of components to enable/disable when picked up
     public MonoBehaviour[] componentsToToggle;
     
     public bool equipped;
-    public static bool slotFull;
 
     private void Start() {
         SetItemState(equipped);
-    }
-
-    private void Update()
-    {
-        if (equipped && slotFull && Input.GetKeyDown(KeyCode.G)) {
-            Drop();
-        }
     }
 
     private void SetItemState(bool isEquipped) {
@@ -37,14 +29,9 @@ public class pickUpController : MonoBehaviour
             }
         }
 
-        // Set physics state
+        // Set rigidbody and collider states
         rb.isKinematic = isEquipped;
         col.isTrigger = isEquipped;
-        
-        // Update global state
-        if (isEquipped) {
-            slotFull = true;
-        }
     }
 
     public void PickUp() {
@@ -61,7 +48,7 @@ public class pickUpController : MonoBehaviour
         // Update component states
         SetItemState(true);
     }
-
+/*
     public void Drop() {
         equipped = false;
         slotFull = false;
@@ -72,7 +59,7 @@ public class pickUpController : MonoBehaviour
         // Update component states
         SetItemState(false);
         
-        // Add forces
+        // Add drop force
         rb.velocity = player.GetComponent<Rigidbody>().velocity;
         rb.AddForce(cam.forward * dropForwardForce, ForceMode.Impulse);
         rb.AddForce(cam.up * dropUpwardForce, ForceMode.Impulse);
@@ -81,4 +68,6 @@ public class pickUpController : MonoBehaviour
         float random = Random.Range(-1f, 1f);
         rb.AddTorque(new Vector3(random, random, random) * 10);
     }
+*/
+
 }

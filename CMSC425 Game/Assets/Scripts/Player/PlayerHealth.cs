@@ -15,6 +15,19 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
+    // Getters and setters
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
+    }
+
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set { currentHealth = value; }
+    }
+
     public void TakeDamage(float damage)
     {
         if (currentHealth <= maxHealth && currentHealth - damage <= maxHealth) {

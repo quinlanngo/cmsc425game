@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class GunController : IInventoryItem
 {
@@ -29,11 +30,6 @@ public class GunController : IInventoryItem
         Color.yellow, 
         Color.magenta 
     };
-    
-    //[SerializeField]
-    //private TextMeshProUGUI ammoText;
-//    [SerializeField]
-//    private pickUpController pickUpController;
     private PlayerUi playerUI;
 
     public enum Element
@@ -74,21 +70,46 @@ public class GunController : IInventoryItem
 
     private void Update() {
         playerUI = GetComponentInParent<PlayerUi>();
+        PlayerInventory playerInventory = GetComponentInParent<PlayerInventory>();
         input();
-        if(pickUpController.slotFull == true) {
-            //ammoText.SetText("[" + bulletsLeft + "/" + magazineSize + "]");
-            playerUI.UpdateAmmoText(bulletsLeft, magazineSize);
-        } else {
-            playerUI.UpdateAmmoText(0, 0);
-            //ammoText.SetText(string.Empty);
+        if(playerInventory.isActive(this)) {
+            // Element= faceColor/OutlineColors for the ammoText
+            // Fire = red/orange, Ice = cyan/white, Air = white/grey, Lightning = white/cyan
+            Color violet = new Color(0.5f, 0, 1, 1);
+            Color lightblue = new Color(0, 0.5f, 1, 1);
+            Color cyan = new Color(0, 1, 1, 1);
+            Color grey = new Color(0.5f, 0.5f, 0.5f, 1);
+            Color white = new Color(1, 1, 1, 1);
+            Color red = new Color(1, 0, 0, 1);
+            Color orange = new Color(1, 0.5f, 0, 1);
+            Color faceColor =  red;
+            Color outlineColor = orange;
+
+            switch (currElement) {
+                case Element.Fire:
+                    faceColor = red;
+                    outlineColor = orange;
+                    break;
+                case Element.Ice:
+                    faceColor = cyan;
+                    outlineColor = white;
+                    break;
+                case Element.Air:
+                    faceColor = grey;
+                    outlineColor = white;
+                    break;
+                case Element.Lightning:
+                    faceColor = white;
+                    outlineColor = cyan;
+                    break;
+            }
+
+            playerUI.UpdateInfoText("[" + bulletsLeft + "/" + magazineSize + "]", faceColor, outlineColor);
         }
     }
 
     public override void Interact() {
         base.Interact();
-//        if(pickUpController.equipped == false && pickUpController.slotFull == false) { 
-//            pickUpController.PickUp();
-//        }
     }
 
     // shoot method to shoot a raycast from the camera

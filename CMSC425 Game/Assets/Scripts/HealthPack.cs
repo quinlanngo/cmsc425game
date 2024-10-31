@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthPack : IInventoryItem {
     private PlayerHealth playerHealth;
-    public float healthToGive = -20;
+    public float healthToGive = 20;
 
     public override void Initialize()
     {
@@ -19,6 +19,9 @@ public class HealthPack : IInventoryItem {
 
     // Update is called once per frame
     void Update() {
+        PlayerUi playerUi = GetComponentInParent<PlayerUi>();
+        playerUi.UpdateInfoText("Heal Strength: " + -1*healthToGive + "\n" 
+        + "Quantity: " + GetItemQuantity() + "/" + GetMaxItemQuantity(), Color.black, Color.white);
         playerHealth = GetComponentInParent<PlayerHealth>();
         if(Input.GetKeyDown(KeyCode.H)) {
             Use();
@@ -26,7 +29,11 @@ public class HealthPack : IInventoryItem {
     }
 
     public override void Use() {
-        base.Use();
-        playerHealth.TakeDamage(healthToGive);
+        if(playerHealth.CurrentHealth < playerHealth.MaxHealth && playerHealth.CurrentHealth + healthToGive <= playerHealth.MaxHealth) {
+            Inventory.ConsumeItem(this);
+            playerHealth.TakeDamage(-1*healthToGive);
+        } else {
+            Debug.Log("Player is already at Max possible health.");
+        }
     }
 }

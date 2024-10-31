@@ -2324,9 +2324,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 965371586074336176, guid: 3079936a026abb046a609a3ae7167597, type: 3}
+      propertyPath: infoText
+      value: 
+      objectReference: {fileID: 710053188}
     - target: {fileID: 1288986185210843594, guid: 3079936a026abb046a609a3ae7167597, type: 3}
       propertyPath: m_Name
       value: ItemContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382629579614306904, guid: 3079936a026abb046a609a3ae7167597, type: 3}
+      propertyPath: m_text
+      value: Info
       objectReference: {fileID: 0}
     - target: {fileID: 2663365084825828983, guid: 3079936a026abb046a609a3ae7167597, type: 3}
       propertyPath: gravity
@@ -2412,6 +2420,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4501076113186328099, guid: 3079936a026abb046a609a3ae7167597, type: 3}
+      propertyPath: m_Name
+      value: Info
+      objectReference: {fileID: 0}
     - target: {fileID: 5700086073937783728, guid: 3079936a026abb046a609a3ae7167597, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2421,10 +2433,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2941105853644287091, guid: 3079936a026abb046a609a3ae7167597, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3079936a026abb046a609a3ae7167597, type: 3}
+--- !u!114 &710053188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2382629579614306904, guid: 3079936a026abb046a609a3ae7167597, type: 3}
+  m_PrefabInstance: {fileID: 710053187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &766771155
 GameObject:
   m_ObjectHideFlags: 0
@@ -7356,6 +7380,7 @@ GameObject:
   - component: {fileID: 1526349702}
   - component: {fileID: 1526349701}
   - component: {fileID: 1526349700}
+  - component: {fileID: 1526349706}
   - component: {fileID: 1526349699}
   m_Layer: 7
   m_Name: Capsule
@@ -7381,9 +7406,8 @@ MonoBehaviour:
   player: {fileID: 534988583}
   itemContainer: {fileID: 1686574707}
   cam: {fileID: 1571832074}
-  dropForwardForce: 2
-  dropUpwardForce: 2
-  componentsToToggle: []
+  componentsToToggle:
+  - {fileID: 1526349706}
   equipped: 0
 --- !u!65 &1526349700
 BoxCollider:
@@ -7521,6 +7545,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1526349706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526349698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbf5b9f708bb1d43a2110532b0c5e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  Message: 
+  healthToGive: -20
 --- !u!1 &1536649661
 GameObject:
   m_ObjectHideFlags: 0
@@ -8563,8 +8602,6 @@ MonoBehaviour:
   player: {fileID: 534988583}
   itemContainer: {fileID: 1686574707}
   cam: {fileID: 1571832074}
-  dropForwardForce: 2
-  dropUpwardForce: 2
   componentsToToggle:
   - {fileID: 1644448512}
   equipped: 0
