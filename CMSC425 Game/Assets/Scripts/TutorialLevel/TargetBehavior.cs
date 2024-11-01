@@ -17,7 +17,7 @@ public class TargetBehavior : MonoBehaviour
     }
 
     // THIS IS A TEST, WE WONT BE USING RAYCASTING FOR BULLETS (its a little dodgy and always doesnt work)
-    /* void Update()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0)) // On left mouse button click
         {
@@ -49,7 +49,7 @@ public class TargetBehavior : MonoBehaviour
                 Debug.Log("Raycast did not hit any object within range.");
             }
         }
-    } */
+    }
 
     public void LightUp()
     {
