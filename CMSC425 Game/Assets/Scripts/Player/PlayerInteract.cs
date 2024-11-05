@@ -30,9 +30,7 @@ public class PlayerInteract : MonoBehaviour
             IInteractable interactable = hitinfo.collider.GetComponent<IInteractable>();
             if (interactable != null) { // Check if the object is interactable
                 playerUI.updateText(interactable.PromptMessage); // update the text with the prompt message
-                // Inorder to access _controlMap from the InputManager script, I had to make it a public variable
                 if (Input.GetKeyDown(KeyCode.E)) {
-                    Debug.Log("Pressing E and calling Interact");
                     interactable.Interact();  // trigger the interact method of the interactable object
                 }
             }

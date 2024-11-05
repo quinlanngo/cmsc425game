@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GruntShooting : MonoBehaviour
@@ -8,17 +7,23 @@ public class GruntShooting : MonoBehaviour
     public float fireRange = 10f;       // Distance at which the enemy starts shooting
     public float fireRate = 1f;         // Time between shots
     public float bulletSpeed = 20f;     // Speed of the bullets
-    public Transform player;   
+    public bool canShoot = true;        // Determines if the enemy can shoot
+    public bool hasGun = true;          // Determines if the enemy has a gun
+    private Transform player;           // Player reference obtained by tag
     private float fireTimer = 0f;       // Timer to track fire rate
-
 
     void Start()
     {
+        // Find the player by tag
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
-       ShootIfInRange(player.transform.position );
+        if (canShoot && hasGun && player != null)
+        {
+            ShootIfInRange(player.position);
+        }
     }
 
     public void ShootIfInRange(Vector3 targetPosition)
@@ -47,7 +52,6 @@ public class GruntShooting : MonoBehaviour
         rb.velocity = direction * bulletSpeed;
     }
 
-
     void PointGunAtPlayer()
     {
         // Calculate direction from the gun to the player
@@ -57,5 +61,4 @@ public class GruntShooting : MonoBehaviour
         // Smoothly rotate the gun towards the player
         gun.rotation = Quaternion.Slerp(gun.rotation, lookRotation, Time.deltaTime * 5f);
     }
-
 }
