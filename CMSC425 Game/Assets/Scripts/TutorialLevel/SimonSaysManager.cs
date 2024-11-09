@@ -136,5 +136,6 @@ public class SimonSaysManager : MonoBehaviour
         {
             Debug.LogWarning("EnemySpawner is not assigned.");
         }
+        SaveLoadController.Instance.SaveAtCheckpoint("Simon");
     }
 }

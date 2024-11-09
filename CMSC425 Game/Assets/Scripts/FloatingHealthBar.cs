@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class FloatingHealthBar : MonoBehaviour
 {
-    public Transform target;
-    public Camera camera;
+    //public Transform target;
     public Vector3 offset;
     public Slider slider;
 
@@ -16,7 +15,7 @@ public class FloatingHealthBar : MonoBehaviour
     }
     void Update()
     {
-        transform.position = target.position + offset;
+        // transform.position = target.position + offset;
     }
 
 }
