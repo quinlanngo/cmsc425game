@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;  
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -30,11 +30,14 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (currentHealth <= maxHealth && currentHealth - damage <= maxHealth) {
+        if (currentHealth <= maxHealth && currentHealth - damage <= maxHealth)
+        {
             currentHealth -= damage;
-        } else if (currentHealth > maxHealth) {
+        }
+        else if (currentHealth > maxHealth)
+        {
             currentHealth = maxHealth;
-        } 
+        }
 
         UpdateHealthBar();
 
@@ -54,10 +57,15 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        // Handle player death (e.g., show death screen, disable player controls)
         Debug.Log("Player has died.");
         DeathText.SetActive(true);
-        //gameObject.SetActive(false);  // Disable the player
-        // RespawnManager.instance.RespawnPlayer();
+
+        // Open the death menu via GameMenu script
+        GameMenu gameMenu = FindObjectOfType<GameMenu>();
+        if (gameMenu != null)
+        {
+            gameMenu.OpenMenuOnDeath();
+        }
     }
+
 }
