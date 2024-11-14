@@ -408,11 +408,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5d7acdcdf7c4003a46b4d52b21189f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3235702694976663355, guid: 42c7de2f883e64a9290cfe1ddf767d2b, type: 3}
+  bulletPrefab: {fileID: 3053003752688545035, guid: 1f08b9c42414f01429ea85f0c78acf93, type: 3}
   gun: {fileID: 1716652368923482401}
+  element: 1
   fireRange: 10
   fireRate: 0.5
   bulletSpeed: 10
+  bulletDamage: 10
   canShoot: 1
   hasGun: 1
 --- !u!54 &7479832347966378818

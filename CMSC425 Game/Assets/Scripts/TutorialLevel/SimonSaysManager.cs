@@ -14,7 +14,7 @@ public class SimonSaysManager : MonoBehaviour
     private bool isPlayerTurn = false;
     private bool sequenceStarted = false;
     private HashSet<int> hitTargets = new HashSet<int>(); // Track unique hits
-    public EnemySpawner enemySpawner;
+    public List<EnemySpawner> enemySpawner;
 
     void Start()
     {
@@ -127,14 +127,17 @@ public class SimonSaysManager : MonoBehaviour
 
     private void DeployEnemies()
     {
-        if (enemySpawner != null)
+        foreach (EnemySpawner enemySpawner in enemySpawner)
         {
-            enemySpawner.SpawnEnemies(); // Spawn enemies at specified points
-            Debug.Log("Enemies deployed at all spawn points!");
-        }
-        else
-        {
-            Debug.LogWarning("EnemySpawner is not assigned.");
+            if (enemySpawner != null)
+            {
+                enemySpawner.SpawnEnemies(); // Spawn enemies at specified points
+                Debug.Log("Enemies deployed at all spawn points!");
+            }
+            else
+            {
+                Debug.LogWarning("EnemySpawner is not assigned.");
+            }
         }
         SaveLoadController.Instance.SaveAtCheckpoint("Simon");
     }
