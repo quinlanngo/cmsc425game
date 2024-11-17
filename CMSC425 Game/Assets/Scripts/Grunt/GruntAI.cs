@@ -110,7 +110,7 @@ public class GruntAI : MonoBehaviour
             Bullet bullet = collision.gameObject.GetComponent<Bullet>(); // Get Bullet component
             if (bullet != null)
             {
-                TakeDamage(bullet.bulletDamage); // Use bullet's damage amount
+                TakeDamage(bullet.GetDamage()); // Use bullet's damage amount
             }
             Destroy(collision.gameObject);  // Destroy the bullet on impact
         }

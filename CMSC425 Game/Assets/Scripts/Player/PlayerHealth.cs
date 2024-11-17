@@ -28,9 +28,27 @@ public class PlayerHealth : MonoBehaviour
         set { currentHealth = value; }
     }
 
+    public void Heal(float amount)
+    {
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += amount;
+        }
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UpdateHealthBar();
+    }
+    
     public void TakeDamage(float damage)
     {
-        if (currentHealth <= maxHealth && currentHealth - damage <= maxHealth)
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        if (currentHealth <= maxHealth)
         {
             currentHealth -= damage;
         }
@@ -40,11 +58,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateHealthBar();
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
     }
 
     void UpdateHealthBar()

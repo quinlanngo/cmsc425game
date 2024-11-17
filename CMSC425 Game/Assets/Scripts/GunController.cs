@@ -1,45 +1,26 @@
-using System.Buffers.Text;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
 
-public class GunController : IInventoryItem
-{
-    [SerializeField]
-    private int damage;
-    [SerializeField]
-    private float fireRate, spread, range, reloadtime, timeBetweenShots;
-    [SerializeField]
-    private int magazineSize, bulletsPerTap;
-    [SerializeField]
-    private bool allowButtonHold;
+public class GunController : IInventoryItem {
+    public Bullet bullet;
+    public int damage;
+    public float shootForce, upwardForce;
+    public float fireRate, spread, range, reloadtime, timeBetweenShots;
+    public int magazineSize, bulletsPerTap;
+    public bool allowButtonHold;
     private int bulletsLeft, bulletsShot;
 
     private bool shooting, readyToShoot, reloading;
-    [SerializeField]
-    private Camera cam;
-    private RaycastHit hit;
-    // private LayerMask mask;  // add a mask if needed.
-    private List<Color> hitColors = new List<Color> { // List of colors to change the object to when hit 
-        Color.red, 
-        Color.blue, 
-        Color.green, 
-        Color.yellow, 
-        Color.magenta 
-    };
+    public Camera cam;
+    public Transform attackPoint;
+    public GameObject muzzleFlash;
     private PlayerUi playerUI;
-
-    public enum Element
-    {
+    public enum Element {
         Fire,
         Ice,
         Air,
-        Lightning
+        Default
     }
-    public Element currElement = Element.Fire;
+    public Element currElement = Element.Default;
 
     private void input() {
         if (allowButtonHold) {
@@ -56,8 +37,7 @@ public class GunController : IInventoryItem
             Use();
         }
 
-        if (Input.GetButtonDown("Fire2"))
-        {
+        if (Input.GetButtonDown("Fire2")) {
             SwitchElement();
         }
     }
@@ -74,9 +54,8 @@ public class GunController : IInventoryItem
         input();
         if(playerInventory.isActive(this)) {
             // Element= faceColor/OutlineColors for the ammoText
-            // Fire = red/orange, Ice = cyan/white, Air = white/grey, Lightning = white/cyan
-            Color violet = new Color(0.5f, 0, 1, 1);
-            Color lightblue = new Color(0, 0.5f, 1, 1);
+            // Fire = red/orange, Ice = cyan/white, Air = white/grey, Default = black/white
+            Color black = new Color(0, 0, 0, 1);
             Color cyan = new Color(0, 1, 1, 1);
             Color grey = new Color(0.5f, 0.5f, 0.5f, 1);
             Color white = new Color(1, 1, 1, 1);
@@ -98,12 +77,11 @@ public class GunController : IInventoryItem
                     faceColor = grey;
                     outlineColor = white;
                     break;
-                case Element.Lightning:
-                    faceColor = white;
-                    outlineColor = cyan;
+                case Element.Default:
+                    faceColor = black;
+                    outlineColor = white;
                     break;
             }
-
             playerUI.UpdateInfoText("[" + bulletsLeft + "/" + magazineSize + "]", faceColor, outlineColor);
         }
     }
@@ -117,42 +95,40 @@ public class GunController : IInventoryItem
         base.Use();
         // is shooting not ready to shoot
         readyToShoot = false;
-        // spread 
+        // Find the exact hit position using raycast
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // center of the screen
+        RaycastHit hit;
+        
+        //check if ray hits something
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit, range)) {
+            targetPoint = hit.point;
+        } else {
+            targetPoint = ray.GetPoint(range);
+        }
+
+        // calculate direction from attackPoint to targetPoint
+        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+        // calculate spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
-        Vector3 direction = cam.transform.forward + new Vector3(x, y, 0); // set director for spread
 
-        // Raycast(origin, direction, hitInfo, maxDistance, filter mask)
-        if (Physics.Raycast(cam.transform.position, direction, out hit, range)) {
-            Debug.Log("Hit object: " + hit.transform.name);
+        // calculate new direction with spread
+        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
-            //gets the transform of the hit object, and attempts to get its ElementalObject component
-            ElementalObject elementalObject = hit.transform.GetComponent<ElementalObject>();
-            
-            //if the object is an elemental object, it will execute whatever function the object has.
-            if (elementalObject != null)
-            {
-                Debug.Log("Hitting " + hit.transform.name + "with " + currElement + ".");
-                elementalObject.InteractWithElement(currElement, hit.point, hit.normal);
-            }
+        // instantiate bullet/projectile
+        Bullet currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        currentBullet.GetComponent<Bullet>().SetDamage(damage);
+        currentBullet.GetComponent<Bullet>().SetElement(currElement);
+        currentBullet.GetComponent<Bullet>().AssignMaterial(currElement);
 
-            // implement take damage in enemy class.
-            // set tag to Enemy
-            // if (hit.collider.CompareTag("Enemy")) {
-            // hit.collider.GetComponent<Enemy_class>().TakeDamage(damage);
-            // }
+        // rotate bullet to shoot direction
+        currentBullet.transform.forward = directionWithSpread.normalized;
 
-            // changes color of the hit object
-
-            /*
-            Renderer renderer = hit.transform.GetComponent<Renderer>();
-            if (renderer != null) {
-                renderer.material.color = GetNextColor();
-            }*/
-        }
-        else {
-            Debug.Log("No object hit");
-        }
+        // add forces to bullet
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(cam.transform.up * upwardForce, ForceMode.Impulse);
 
         bulletsLeft--;
         bulletsShot--;
@@ -193,11 +169,5 @@ public class GunController : IInventoryItem
 
     private void ResetShot() {
         readyToShoot = true;
-    }
-
-    // Gets the next color from the list
-    private Color GetNextColor() {
-        Color nextColor = hitColors[Random.Range(0, 4)];
-        return nextColor;
     }
 }

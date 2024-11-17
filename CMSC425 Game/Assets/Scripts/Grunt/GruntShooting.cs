@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class GruntShooting : MonoBehaviour
 {
-    public GameObject bulletPrefab;     // Bullet object to be instantiated
+    public Bullet bulletPrefab;     // Bullet object to be instantiated
     public Transform gun;               // Point where the bullets will be spawned from
+    public GunController.Element element;
     public float fireRange = 10f;       // Distance at which the enemy starts shooting
     public float fireRate = 1f;         // Time between shots
     public float bulletSpeed = 20f;     // Speed of the bullets
+    public int bulletDamage = 10;    // Damage of the bullets
     public bool canShoot = true;        // Determines if the enemy can shoot
     public bool hasGun = true;          // Determines if the enemy has a gun
     private Transform player;           // Player reference obtained by tag
@@ -45,8 +47,10 @@ public class GruntShooting : MonoBehaviour
 
     void Shoot(Vector3 targetPosition)
     {
-        GameObject bullet = Instantiate(bulletPrefab, gun.position, gun.rotation);
-
+        Bullet bullet = Instantiate(bulletPrefab, gun.position, gun.rotation);
+        bullet.GetComponent<Bullet>().SetDamage(bulletDamage);
+        bullet.GetComponent<Bullet>().SetElement(element);
+        bullet.GetComponent<Bullet>().AssignMaterial(element);
         Vector3 direction = (targetPosition - gun.position).normalized;
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.velocity = direction * bulletSpeed;
