@@ -6,7 +6,13 @@ public class Wick : ElementalObject
     public Burner TargetObject; // The first burner in the chain
 
     private Flame flameInstance;
-
+    public void Start()
+    {
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, transform.position);  // Set the first point
+        lineRenderer.SetPosition(1, TargetObject.transform.position);
+    }
     public override void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal)
     {
         if (element == GunController.Element.Fire)
@@ -23,4 +29,14 @@ public class Wick : ElementalObject
             flameInstance.SetTarget(TargetObject);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        
+        
+        Gizmos.color = Color.red;  // Set line color (optional)
+        Gizmos.DrawLine(transform.position, TargetObject.transform.position);
+        
+    }
+
 }

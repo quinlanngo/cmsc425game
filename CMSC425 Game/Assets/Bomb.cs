@@ -101,11 +101,16 @@ public class Bomb : MovableObject
         foreach (Collider nearbyObject in nearbyObjects)
         {
             Destructable dest = nearbyObject.GetComponent<Destructable>();
+            PlayerHealth player = nearbyObject.GetComponent<PlayerHealth>();
             Debug.Log("BOOM");
 
             if (dest != null)
             {
                 dest.Destroy();
+            }
+            if (player != null)
+            {
+                player.TakeDamage(float.MaxValue);
             }
         }
 
