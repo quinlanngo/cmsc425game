@@ -47,32 +47,54 @@ public class Bomb : MovableObject
     }
 
 
-    private IEnumerator Prime()
+
+
+    public IEnumerator Prime()
     {
+        // Cache the Renderer and ensure it's valid
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
-            renderer.material.color = Color.red;
+            renderer.material.color = Color.red; // Indicate arming with a visual change
+        }
+        else
+        {
+            Debug.LogWarning("No Renderer found on Bomb. Skipping color change.");
+        }
+
+        // Cache tickingSource and ensure it’s valid
+        if (tickingSource == null)
+        {
+            Debug.LogWarning("Ticking sound source is missing. Bomb will arm silently.");
         }
 
         // Duration and delay for ticking
         float elapsedTime = 0f;
         float tickInterval = 1f; // Tick every second
 
-        // Play ticking sound every second until armTime is reached
         while (elapsedTime < armTime)
         {
-            
-            tickingSource.Play();
+            // Check if this game object or component has been destroyed mid-coroutine
+            if (this == null || gameObject == null)
+            {
+                Debug.LogError("Bomb object has been destroyed before the coroutine could complete.");
+                yield break;
+            }
 
-            //wait for the tick interval
+            // Play ticking sound if the AudioSource is valid
+            if (tickingSource != null)
+            {
+                tickingSource.Play();
+            }
+
+            // Wait for the tick interval
             yield return new WaitForSeconds(tickInterval);
 
-            //increment elapsed time
+            // Increment elapsed time
             elapsedTime += tickInterval;
         }
 
-        //when arm time ends, trigger the explosion
+        // Trigger explosion after arming time is complete
         Explode();
     }
 
@@ -92,6 +114,11 @@ public class Bomb : MovableObject
         soundObject.transform.position = transform.position;
         AudioSource soundSource = soundObject.AddComponent<AudioSource>();
         soundSource.clip = explosionSource.clip; // Assign the explosion clip
+                                                 // Configure spatial sound settings
+        soundSource.spatialBlend = 1.0f; // Makes the sound fully 3D
+        soundSource.minDistance = 5.0f;  // Start reducing volume after this distance
+        soundSource.maxDistance = 10.0f; // Completely silent beyond this distance
+        soundSource.rolloffMode = AudioRolloffMode.Logarithmic; // Gradual falloff
         soundSource.Play();
         Destroy(soundObject, soundSource.clip.length); // Destroy after sound completes
 

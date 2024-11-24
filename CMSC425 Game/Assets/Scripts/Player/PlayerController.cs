@@ -26,10 +26,12 @@ public class PlayerController : MonoBehaviour
 
 
     #region Collision Detection
-    [SerializeField] private float sphereRadius = 0.5f; //radius of the spherecast for the groundcheck
+    [SerializeField] private float sphereRadius = 1f; //radius of the spherecast for the groundcheck
     [SerializeField] private float groundCheckDistance = 1f;
+    [SerializeField] private float ceilingCheckDistance = 2f;
     [SerializeField] private LayerMask jumpableGround;
     public bool isGrounded; //whether or not the player is touching the ground
+    public bool isCeiling; //whether or not the player is hitting a ceiling
     #endregion
 
 
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
         //sphere cast from the player's position downwards. If the sphere intersects with the ground, then the player is grounded.
         isGrounded = Physics.SphereCast(transform.position, sphereRadius, Vector3.down, out RaycastHit hitInfo, groundCheckDistance, jumpableGround);
-
+        isCeiling = Physics.SphereCast(transform.position, sphereRadius, Vector3.up, out RaycastHit ceilingHitInfo, ceilingCheckDistance);
         HandleLook(mouseInput); //handle camera movement
         PlayerMove(movementInput); //handle movement input
 
@@ -60,21 +62,32 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity); //executes jump force with the kinematic equation
         }
+
+        // Reset upward velocity if hitting the ceiling.
+        if (isCeiling && velocity.y >= 0)
+        {
+            Debug.Log("Hit Ceiling");
+            velocity.y = 0;
+        }
     }
 
     //ALL PHYSICS STUFF SHOULD GO HERE
     private void FixedUpdate()
     {
-        //reset velocity when grounded to keep it from accumulating
+        // Reset velocity when grounded to keep it from accumulating
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        //apply gravity
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        // Check for ceiling collision in FixedUpdate
+        isCeiling = Physics.SphereCast(transform.position, sphereRadius, Vector3.up, out RaycastHit ceilingHitInfo, ceilingCheckDistance);
 
+        // Apply gravity
+        velocity.y += gravity * Time.deltaTime;
+
+        // Move the character
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     public void HandleLook(Vector2 input)
