@@ -12,7 +12,7 @@ public class Water : ElementalObject
     private GameObject currentCloud;
     private bool cloudIsMoving = false;
     private float moveSpeed = 2f;
-    private float cloudHeight = 3f;
+    public float cloudHeight = 5f;
     void Update()
     {
         if (cloudIsMoving) { currentCloud.transform.position += Vector3.up * moveSpeed * Time.deltaTime;}
@@ -37,7 +37,7 @@ public class Water : ElementalObject
     {
         //spawns the prefab at the location of the bullet.
         GameObject iceSheet = Instantiate(iceSheetPrefab, hitPoint, Quaternion.identity);
-        iceSheet.transform.up = hitNormal;
+        iceSheet.transform.up = Vector3.up;
 
         Debug.Log("Ice sheet spawned at: " + hitPoint);
     }
@@ -52,5 +52,7 @@ public class Water : ElementalObject
         currentCloud = Instantiate(cloudPrefab, hitPoint, Quaternion.identity);
         cloudIsMoving = true;
     }
+
+    
 
 }

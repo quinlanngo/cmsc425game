@@ -10,6 +10,7 @@ public class Bomb : MovableObject
 
     private AudioSource tickingSource;
     private AudioSource explosionSource;
+    private bool stopPrime;
 
     private void Start()
     {
@@ -39,6 +40,14 @@ public class Bomb : MovableObject
             Debug.Log("Priming");
             StartCoroutine(Prime());
         }
+
+        if (element == GunController.Element.Ice)
+        {
+            Debug.Log("Freezing");
+            StopCoroutine(Prime());
+            stopPrime = true;
+        }
+
         if (element == GunController.Element.Air)
         {
             //launching object
@@ -95,6 +104,12 @@ public class Bomb : MovableObject
         }
 
         // Trigger explosion after arming time is complete
+        if (stopPrime)
+        {
+            stopPrime = false;
+            renderer.material.color = Color.black; 
+            yield break;
+        }
         Explode();
     }
 

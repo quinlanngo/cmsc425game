@@ -13,6 +13,9 @@ public class Crusher : MonoBehaviour
     private Vector3 initialScale;
     private float elapsedTime;
 
+    public Vector3 launchDirection = Vector3.forward;
+    public float launchForce = 10f;
+
     void Start()
     {
         initialScale = transform.localScale;
@@ -41,6 +44,35 @@ public class Crusher : MonoBehaviour
             }
             
             transform.localScale = new Vector3(initialScale.x + scale, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Rigidbody playerRigidBody = collision.gameObject.GetComponent<Rigidbody>();
+            playerRigidBody.AddForce(launchDirection.normalized * launchForce, ForceMode.Impulse);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Set gizmo color
+        Gizmos.color = Color.red;
+
+        {
+            // Draw an arrow representing the launch direction
+            
+                Vector3 start = transform.position;
+                Vector3 end = start + launchDirection.normalized * 2.0f; // Scale the arrow for visibility
+                Gizmos.DrawLine(start, end);
+
+                // Draw the arrowhead
+                Vector3 arrowHeadSize = Vector3.up * 0.2f;
+                Gizmos.DrawLine(end, end - (launchDirection.normalized + arrowHeadSize) * 0.2f);
+                Gizmos.DrawLine(end, end - (launchDirection.normalized - arrowHeadSize) * 0.2f);
+            
         }
     }
 }
