@@ -16,7 +16,7 @@ public class GameMenu : MonoBehaviour
     private void Update()
     {
         // Toggle pause/resume with Escape key
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             if (isPaused)
                 ResumeGame();
