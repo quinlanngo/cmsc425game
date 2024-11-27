@@ -1388,9 +1388,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 282200758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f996d74fadb84abfa8d0f0c5f1896c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 94964a3bf05e6d240adc08d0d155e452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuPanel: {fileID: 1094976681}
+  resumeButton: {fileID: 411804027}
 --- !u!4 &282200760
 Transform:
   m_ObjectHideFlags: 0
@@ -2659,7 +2661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 108.46
+      value: 92.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5649,7 +5651,7 @@ Transform:
   m_GameObject: {fileID: 1332801957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.73, y: 0.75, z: 0}
+  m_LocalPosition: {x: 109.3, y: 0.75, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
