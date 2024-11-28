@@ -1,40 +1,44 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Cloud : MonoBehaviour
 {
-
     public float moveSpeed = 2f;
-    public bool isInWind = false;
-    public Vector3 movementDirection = Vector3.zero;
+    public float detectionRadius = 1f; // Radius to check for Wind objects
+    private LayerMask windLayerMask;   // Layer mask for Wind objects
 
-    // Update is called once per frame
+    private void Start()
+    {
+        windLayerMask = LayerMask.GetMask("Wind");
+    }
+
     private void Update()
     {
-        if (isInWind)
+        Vector3 movementDirection = Vector3.zero;
+
+        // Find all colliders within the detection radius that are on the Wind layer
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, windLayerMask);
+
+        foreach (var collider in colliders)
         {
-            this.transform.position += moveSpeed * movementDirection * Time.deltaTime;
-        }
-        
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Wind"))
-        {
-            isInWind = true;
-            Wind windObject = other.gameObject.GetComponent<Wind>();
-            if (windObject != null)
+            Wind wind = collider.GetComponent<Wind>();
+            if (wind != null && wind.isActiveAndEnabled)
             {
-                movementDirection = windObject.getWindDirection();
+                movementDirection += wind.GetWindDirection();
             }
+        }
 
+        // Apply movement based on the cumulative wind direction
+        if (movementDirection != Vector3.zero)
+        {
+            transform.position += moveSpeed * movementDirection.normalized * Time.deltaTime;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        isInWind = false;
+        // Visualize the detection radius in the editor
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
-   
 }
