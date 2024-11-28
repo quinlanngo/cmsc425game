@@ -5,10 +5,12 @@ using UnityEngine;
 [Serializable]
 public class SavedGameData
 {
+    public string sceneName; // The name of the scene
     public float[] playerPosition;
     public float[] playerRotation;
     public List<TransformData> inventoryItemsData;
 }
+
 
 [Serializable]
 public class TransformData

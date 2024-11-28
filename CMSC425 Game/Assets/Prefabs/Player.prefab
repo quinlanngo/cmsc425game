@@ -646,10 +646,10 @@ RectTransform:
   - {fileID: 3499795040968071105}
   m_Father: {fileID: 2340395329159508470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 319, y: 179}
-  m_SizeDelta: {x: -650, y: -329}
+  m_AnchoredPosition: {x: -150, y: -50}
+  m_SizeDelta: {x: 225, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4733826058567580400
 MonoBehaviour:
@@ -1360,7 +1360,12 @@ MonoBehaviour:
   ySensitivity: 500
   sphereRadius: 0.5
   groundCheckDistance: 1
+  ceilingCheckDistance: 2
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 0
   isGrounded: 0
+  isCeiling: 0
 --- !u!114 &2591989206679323597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,11 +1409,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0865c05534bd74dad17e496e9efd3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
+  inventorySlots: []
   maxItems: 5
+  maxItemQuantity: 10
   currentItem: 0
-  itemParent: {fileID: 493388121486274421}
+  ItemContainer: {fileID: 0}
 --- !u!114 &965371586074336176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,4 +1427,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptText: {fileID: 5825060039505041587}
-  bullets: {fileID: 2382629579614306904}
+  infoText: {fileID: 0}

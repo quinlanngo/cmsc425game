@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class GameMenu : MonoBehaviour
     private void Update()
     {
         // Toggle pause/resume with Escape key
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
                 ResumeGame();
@@ -31,7 +32,7 @@ public class GameMenu : MonoBehaviour
         menuPanel.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;  // Pause the game
+        Time.timeScale = 0f;  // Pause 
     }
 
     public void ResumeGame()
@@ -64,4 +65,73 @@ public class GameMenu : MonoBehaviour
         Application.Quit(); // Quit application
 #endif
     }
+
+    public void RemoveAllCheckpoints()
+    {
+        SaveLoadController.Instance.RemoveAllCheckpoints();
+        Debug.Log("All checkpoints removed.");
+    }
+
+    public void RemoveCheckpoint(string checkpointID)
+    {
+        SaveLoadController.Instance.RemoveCheckpoint(checkpointID);
+        Debug.Log($"Checkpoint {checkpointID} removed.");
+    }
+
+    public void LoadCheckpoint(string checkpointID)
+    {
+        SaveLoadController.Instance.LoadFromCheckpoint(checkpointID);
+        Debug.Log($"Checkpoint {checkpointID} Loaded.");
+
+    }
+    public void LoadCheckpoint(Button button)
+    {
+        // Find the TextMeshPro component in the children of the provided GameObject
+        TextMeshProUGUI textComponent = button.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (textComponent != null)
+        {
+            string checkpointID = textComponent.text; // Use the text as the checkpoint ID
+            Debug.Log($"Loading checkpoint: {checkpointID}");
+            SaveLoadController.Instance.LoadFromCheckpoint(checkpointID);
+            ResumeGame(); // Close the menu after loading the checkpoint
+        }
+        else
+        {
+            Debug.LogWarning("No TextMeshProUGUI component found under the provided GameObject.");
+        }
+    }
+
+
+    public void SetGameVolume(float newVolume)
+    {
+        AudioListener.volume = Mathf.Clamp01(newVolume / 100f);
+        Debug.Log($"Game volume set to: {newVolume}");
+    }
+
+
+    public void SetMouseSensitivity(float newSensitivity)
+    {
+        // Find the player object and get the PlayerController component
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            var playerController = player.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.SetMouseSensitivity(newSensitivity);
+                Debug.Log($"Mouse sensitivity set to: {newSensitivity}");
+            }
+            else
+            {
+                Debug.LogWarning("PlayerController component not found on the Player object.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player object not found.");
+        }
+    }
 }
+

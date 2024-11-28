@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         Vector2 movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
-       
+
 
         //sphere cast from the player's position downwards. If the sphere intersects with the ground, then the player is grounded.
         isGrounded = Physics.SphereCast(transform.position, sphereRadius, Vector3.down, out RaycastHit hitInfo, groundCheckDistance, jumpableGround);
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
     }
     public void PlayerMove(Vector2 input)
     {
-       
+
         moveInput = input;
         //calculate the move direction
         Vector3 moveDirection = (transform.right * moveInput.x + transform.forward * moveInput.y);
@@ -116,4 +116,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void SetMouseSensitivity(float s)
+    {
+        xSensitivity = s;
+        ySensitivity = s;
+    }
 }
