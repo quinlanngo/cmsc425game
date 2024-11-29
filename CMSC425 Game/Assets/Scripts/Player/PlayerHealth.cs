@@ -6,12 +6,10 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;  // Maximum player health
     private float currentHealth;   // Current player health
     public Slider healthBar;     // Health bar UI element
-    public GameObject DeathText;
 
     void Start()
     {
         currentHealth = maxHealth;
-        DeathText.SetActive(false);
         UpdateHealthBar();
     }
 
@@ -41,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
         UpdateHealthBar();
     }
-    
+
     public void TakeDamage(float damage)
     {
         if (currentHealth <= 0)
@@ -71,7 +69,6 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player has died.");
-        DeathText.SetActive(true);
 
         // Open the death menu via GameMenu script
         GameMenu gameMenu = FindObjectOfType<GameMenu>();

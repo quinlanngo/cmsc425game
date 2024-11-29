@@ -15,6 +15,8 @@ public class GameMenu : MonoBehaviour
     private void Start()
     {
         menuPanel.SetActive(false); // Hide menu by default
+        gameObject.GetComponent<MenuSelector>().ShowDeathText(false);
+
     }
 
     private void Update()
@@ -56,6 +58,7 @@ public class GameMenu : MonoBehaviour
     {
         PauseGame();
         resumeButton.interactable = false; // Disable resume button on death
+        gameObject.GetComponent<MenuSelector>().ShowDeathText(true);
     }
 
     public void GoBackToLastCheckpoint()

@@ -9,6 +9,7 @@ public class MenuSelector : MonoBehaviour
     public GameObject mainPanel;          // The main menu panel
     public GameObject checkpointsMenu;    // The checkpoints menu under SelectionPanel
     public GameObject optionsMenu;        // The options menu under SelectionPanel
+    public GameObject deathText;          // The death text object
 
     [Header("Buttons")]
     public Button checkpointsButton;      // Button to open checkpoints menu
@@ -46,6 +47,11 @@ public class MenuSelector : MonoBehaviour
     {
         checkpointsMenu.SetActive(false);
         optionsMenu.SetActive(true);
+    }
+
+    public void ShowDeathText(bool show)
+    {
+        deathText.SetActive(show);
     }
 
     private void PopulateCheckpointNames()
