@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
@@ -24,12 +25,12 @@ public class GameMenu : MonoBehaviour
             if (isPaused)
             {
                 ResumeGame();
-            }     
+            }
             else
             {
                 PauseGame();
             }
-               
+
         }
     }
 
@@ -107,6 +108,13 @@ public class GameMenu : MonoBehaviour
         {
             Debug.LogWarning("No TextMeshProUGUI component found under the provided GameObject.");
         }
+    }
+
+    public void RestartLevel()
+    {
+        ResumeGame();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 
 
