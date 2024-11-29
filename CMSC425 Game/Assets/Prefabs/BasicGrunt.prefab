@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 6168712093127526895}
   - component: {fileID: 7307606964483622115}
   - component: {fileID: 1473619911832973392}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,9 +209,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8367407257899568594}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Grunt
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -345,9 +345,9 @@ GameObject:
   - component: {fileID: 7479832347966378818}
   - component: {fileID: 3286078098757212646}
   - component: {fileID: 6792978559247061899}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BasicGrunt
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -545,6 +545,10 @@ PrefabInstance:
     - target: {fileID: 4772368194578369961, guid: 15235f5127b9143c99d5ba2cd21b2edd, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772368194578369961, guid: 15235f5127b9143c99d5ba2cd21b2edd, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7207271326324091175, guid: 15235f5127b9143c99d5ba2cd21b2edd, type: 3}
       propertyPath: m_LocalPosition.x

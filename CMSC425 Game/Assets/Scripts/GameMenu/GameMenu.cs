@@ -6,6 +6,8 @@ public class GameMenu : MonoBehaviour
 {
     public GameObject menuPanel;  // Panel containing the menu UI
     public Button resumeButton;        // Reference to Resume button
+    public TextMeshProUGUI mouseSensitivity;
+    public TextMeshProUGUI gameVolume;
 
     private bool isPaused = false;
 
@@ -20,9 +22,14 @@ public class GameMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
+            {
                 ResumeGame();
+            }     
             else
+            {
                 PauseGame();
+            }
+               
         }
     }
 
@@ -106,6 +113,7 @@ public class GameMenu : MonoBehaviour
     public void SetGameVolume(float newVolume)
     {
         AudioListener.volume = Mathf.Clamp01(newVolume / 100f);
+        gameVolume.text = "Set Volume: " + newVolume;
         Debug.Log($"Game volume set to: {newVolume}");
     }
 
@@ -121,6 +129,7 @@ public class GameMenu : MonoBehaviour
             if (playerController != null)
             {
                 playerController.SetMouseSensitivity(newSensitivity);
+                mouseSensitivity.text = "Set Mouse Sensitivity: " + newSensitivity;
                 Debug.Log($"Mouse sensitivity set to: {newSensitivity}");
             }
             else

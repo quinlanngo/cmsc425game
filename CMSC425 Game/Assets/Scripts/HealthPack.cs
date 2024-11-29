@@ -20,7 +20,7 @@ public class HealthPack : IInventoryItem {
     // Update is called once per frame
     void Update() {
         PlayerUi playerUi = GetComponentInParent<PlayerUi>();
-        playerUi.UpdateInfoText("Heal Strength: " + healthToGive + "\n" 
+        playerUi.updateInfoText("Heal Strength: " + healthToGive + "\n" 
         + "Quantity: " + GetItemQuantity() + "/" + GetMaxItemQuantity(), Color.black, Color.white);
         playerHealth = GetComponentInParent<PlayerHealth>();
         if(Input.GetKeyDown(KeyCode.H)) {

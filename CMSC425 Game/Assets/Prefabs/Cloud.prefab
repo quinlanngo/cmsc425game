@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5775831245158016828}
   m_Layer: 3
   m_Name: Cloud
-  m_TagString: Untagged
+  m_TagString: Cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  detectionRadius: 1
 --- !u!54 &5775831245158016828
 Rigidbody:
   m_ObjectHideFlags: 0

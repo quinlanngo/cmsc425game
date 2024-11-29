@@ -1,19 +1,37 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+using System;
 
-public class GunController : IInventoryItem {
+public class GunController : IInventoryItem
+{
     public Bullet bullet;
     public int damage;
     public float shootForce, upwardForce;
     public float fireRate, spread, range, reloadtime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
-    private int bulletsLeft, bulletsShot;
+    private int bulletsShot;
+
+    // Static flags for element availability, just eable after each level complition
+    public static bool fireEnabled = true;
+    public static bool iceEnabled = true;
+    public static bool airEnabled = false;
+    // Note: No flag for default as it's always enabled
+
+    // Dictionary to store bullets for each element
+    private Dictionary<Element, int> elementBullets;
+    private float reloadStartTime;
+    private bool isReloadAnimating;
+    private int bulletsAtReloadStart;
 
     private bool shooting, readyToShoot, reloading;
     public Camera cam;
     public Transform attackPoint;
     public GameObject muzzleFlash;
     private PlayerUi playerUI;
+    public Slider energyBar;
     public enum Element {
         Fire,
         Ice,
@@ -22,17 +40,36 @@ public class GunController : IInventoryItem {
     }
     public Element currElement = Element.Default;
 
+    // Helper method to check if an element is enabled
+    private bool IsElementEnabled(Element element) {
+        switch (element) {
+            case Element.Fire:
+                return fireEnabled;
+            case Element.Ice:
+                return iceEnabled;
+            case Element.Air:
+                return airEnabled;
+            case Element.Default:
+                return true; // Default is always enabled
+            default:
+                return false;
+        }
+    }
+
     private void input() {
         if (allowButtonHold) {
             shooting = Input.GetKey(KeyCode.Mouse0);
-        } else {
+        }
+        else {
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) {
-            Reload();
-        } 
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0) {
+        // Only reload current element if its bullets are less than magazine size
+        if (Input.GetKeyDown(KeyCode.R) && elementBullets[currElement] < magazineSize && !reloading) {
+            Reload();
+        }
+
+        if (readyToShoot && shooting && !reloading && elementBullets[currElement] > 0) {
             bulletsShot = bulletsPerTap;
             Use();
         }
@@ -44,45 +81,67 @@ public class GunController : IInventoryItem {
 
     private void Awake() {
         Initialize();
-        bulletsLeft = magazineSize;
+        // Initialize dictionary with full magazine for each element
+        elementBullets = new Dictionary<Element, int>();
+        foreach (Element element in System.Enum.GetValues(typeof(Element))) {
+            elementBullets[element] = magazineSize;
+        }
         readyToShoot = true;
+        isReloadAnimating = false;
     }
 
     private void Update() {
         playerUI = GetComponentInParent<PlayerUi>();
+        playerUI.updateInfoText(String.Empty, Color.white, Color.white);
         PlayerInventory playerInventory = GetComponentInParent<PlayerInventory>();
         input();
-        if(playerInventory.isActive(this)) {
-            // Element= faceColor/OutlineColors for the ammoText
-            // Fire = red/orange, Ice = cyan/white, Air = white/grey, Default = black/white
-            Color black = new Color(0, 0, 0, 1);
-            Color cyan = new Color(0, 1, 1, 1);
-            Color grey = new Color(0.5f, 0.5f, 0.5f, 1);
-            Color white = new Color(1, 1, 1, 1);
-            Color red = new Color(1, 0, 0, 1);
-            Color orange = new Color(1, 0.5f, 0, 1);
-            Color faceColor =  red;
-            Color outlineColor = orange;
+        if (playerInventory.isActive(this)) {
+            UpdateEnergyBar();
+        }
+    }
 
-            switch (currElement) {
-                case Element.Fire:
-                    faceColor = red;
-                    outlineColor = orange;
-                    break;
-                case Element.Ice:
-                    faceColor = cyan;
-                    outlineColor = white;
-                    break;
-                case Element.Air:
-                    faceColor = grey;
-                    outlineColor = white;
-                    break;
-                case Element.Default:
-                    faceColor = black;
-                    outlineColor = white;
-                    break;
+    private void UpdateEnergyBar() {
+        // Element colors
+        Color black = new Color(0, 0, 0, 1);
+        Color cyan = new Color(0, 1, 1, 1);
+        Color grey = new Color(0.5f, 0.5f, 0.5f, 1);
+        Color white = new Color(1, 1, 1, 1);
+        Color red = new Color(1, 0, 0, 1);
+        Color orange = new Color(1, 0.5f, 0, 1);
+        Color sliderColor = red;
+
+        switch (currElement) {
+            case Element.Fire:
+                sliderColor = orange;
+                break;
+            case Element.Ice:
+                sliderColor = cyan;
+                break;
+            case Element.Air:
+                sliderColor = grey;
+                break;
+            case Element.Default:
+                sliderColor = black;
+                break;
+        }
+        energyBar.fillRect.GetComponent<Image>().color = sliderColor;
+
+        if (isReloadAnimating) {
+            float reloadProgress = (Time.time - reloadStartTime) / reloadtime;
+            if (reloadProgress >= 1f) {
+                // Reload animation complete
+                isReloadAnimating = false;
+                energyBar.value = 1f;
             }
-            playerUI.UpdateInfoText("[" + bulletsLeft + "/" + magazineSize + "]", faceColor, outlineColor);
+            else {
+                // Reload animation in progress
+                float startValue = (float)bulletsAtReloadStart / magazineSize;
+                energyBar.value = Mathf.Lerp(startValue, 1f, reloadProgress);
+            }
+        }
+        else {
+            // When not reloading, show current element's bullets
+            energyBar.value = (float)elementBullets[currElement] / magazineSize;
         }
     }
 
@@ -90,7 +149,7 @@ public class GunController : IInventoryItem {
         base.Interact();
     }
 
-    // shoot method to shoot a raycast from the camera
+    // Creates a physical bullets and assigns properties.
     public override void Use() {
         base.Use();
         // is shooting not ready to shoot
@@ -98,12 +157,13 @@ public class GunController : IInventoryItem {
         // Find the exact hit position using raycast
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // center of the screen
         RaycastHit hit;
-        
-        //check if ray hits something
+
+        // check if ray hits something
         Vector3 targetPoint;
         if (Physics.Raycast(ray, out hit, range)) {
             targetPoint = hit.point;
-        } else {
+        }
+        else {
             targetPoint = ray.GetPoint(range);
         }
 
@@ -111,17 +171,17 @@ public class GunController : IInventoryItem {
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
 
         // calculate spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
+        float x = UnityEngine.Random.Range(-spread, spread);
+        float y = UnityEngine.Random.Range(-spread, spread);
 
         // calculate new direction with spread
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
-        // instantiate bullet/projectile
+        // instantiate bullet
         Bullet currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.GetComponent<Bullet>().SetDamage(damage);
-        currentBullet.GetComponent<Bullet>().SetElement(currElement);
-        currentBullet.GetComponent<Bullet>().AssignMaterial(currElement);
+        currentBullet.GetComponent<Bullet>().SetDamage(damage); // Set bullet damage
+        currentBullet.GetComponent<Bullet>().SetElement(currElement); // Set bullet element
+        currentBullet.GetComponent<Bullet>().AssignMaterial(currElement);  // Assign material based on element
 
         // rotate bullet to shoot direction
         currentBullet.transform.forward = directionWithSpread.normalized;
@@ -130,40 +190,47 @@ public class GunController : IInventoryItem {
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(cam.transform.up * upwardForce, ForceMode.Impulse);
 
-        bulletsLeft--;
+        // Decrease bullets for current element only
+        elementBullets[currElement]--;
         bulletsShot--;
 
         // Invoke(function to invoke, delay)
         Invoke("ResetShot", fireRate);
-        if (bulletsShot > 0 && bulletsLeft > 0) {
+        if (bulletsShot > 0 && elementBullets[currElement] > 0) {
             Invoke("Use", timeBetweenShots);
         }
     }
 
-    //Switches the current element. Currently doesn't have a GUI representation
-    private void SwitchElement()
-    {
-   
+    // Switches the current element, skipping disabled elements
+    private void SwitchElement() {
         Element[] elements = (Element[])System.Enum.GetValues(typeof(Element));
-
         int currentIndex = System.Array.IndexOf(elements, currElement);
-        currentIndex = (currentIndex + 1) % elements.Length;
-        currElement = elements[currentIndex];
 
-     
-        print("Switched to Element: " + currElement);
+        // Keep trying next elements until an enabled one is found
+        do {
+            currentIndex = (currentIndex + 1) % elements.Length;
+        } while (!IsElementEnabled(elements[currentIndex]) && elements[currentIndex] != currElement);
 
-
+        // Only switch if we found a different enabled element
+        if (IsElementEnabled(elements[currentIndex])) {
+            currElement = elements[currentIndex];
+            print("Switched to Element: " + currElement);
+        }
     }
 
     private void Reload() {
         reloading = true;
-        Invoke("ReloadFinished", reloadtime); // reloadtime defines how long it takes to reload.
+        isReloadAnimating = true;
+        reloadStartTime = Time.time;
+        // Store current element's bullets for the reload animation
+        bulletsAtReloadStart = elementBullets[currElement];
+
+        Invoke("ReloadFinished", reloadtime);
     }
 
     private void ReloadFinished() {
-        // set bulletsleft to the size of magazine
-        bulletsLeft = magazineSize;
+        // Only reload the current element's bullets
+        elementBullets[currElement] = magazineSize;
         reloading = false;
     }
 

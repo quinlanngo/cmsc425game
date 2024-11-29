@@ -146,7 +146,7 @@ public class PlayerInventory : MonoBehaviour
                 // Remove the slot entirely if quantity reaches 0
                 Destroy(item.gameObject);
                 PlayerUi playerUi = GetComponentInParent<PlayerUi>();
-                playerUi.UpdateInfoText("", Color.black, Color.white);
+                playerUi.updateInfoText("", Color.black, Color.white);
             }
             else
             {

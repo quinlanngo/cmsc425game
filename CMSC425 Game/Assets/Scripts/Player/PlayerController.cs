@@ -9,10 +9,16 @@ public class PlayerController : MonoBehaviour
     //Variables for modifying and storing player movement information
     #region Movement Variables
     public float moveSpeed = 8f; //player walk speed
-    public float jumpForce = 3f; //player jump height
-    public float gravity = -20f; //constant gravity acceleration
+    public float sprintSpeed = 15f; //player sprint speed
+    public float iceSpeedMultiplier = 2f; //player speed on ice
+    public float cloudJumpMultiplier = 2f; //player jump height on clouds
+    public float jumpForce = 5f; //player jump height
+    public float gravity = -40f; //constant gravity acceleration
     private Vector2 moveInput;
     private Vector3 velocity;
+    private bool isSprinting = false;
+    private bool isOnIce = false;
+    private bool isOnCloud = false;
     #endregion
 
 
@@ -48,19 +54,45 @@ public class PlayerController : MonoBehaviour
         //get the mouse input 
         Vector2 movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-
+        //if the player is on ice or clouds, they can't sprint. Otherwise, they can.
+        isSprinting = !isOnIce && !isOnCloud && Input.GetKey(KeyCode.LeftShift);
 
 
         //sphere cast from the player's position downwards. If the sphere intersects with the ground, then the player is grounded.
-        isGrounded = Physics.SphereCast(transform.position, sphereRadius, Vector3.down, out RaycastHit hitInfo, groundCheckDistance, jumpableGround);
+        if (Physics.SphereCast(transform.position, sphereRadius, Vector3.down, out RaycastHit hitInfo, groundCheckDistance, jumpableGround))
+        {
+            isGrounded = true;
+            //check if the player is on ice or clouds
+            isOnIce = hitInfo.collider.CompareTag("IceSheet");
+            isOnCloud = hitInfo.collider.CompareTag("Cloud");
+        }
+        else
+        {
+            isGrounded = false;
+            isOnIce = false;
+            isOnCloud = false;
+        }
+
         isCeiling = Physics.SphereCast(transform.position, sphereRadius, Vector3.up, out RaycastHit ceilingHitInfo, ceilingCheckDistance);
+
+
         HandleLook(mouseInput); //handle camera movement
         PlayerMove(movementInput); //handle movement input
+
+        float currentJumpForce = jumpForce;
+        if (isOnCloud)
+        {
+            currentJumpForce *= cloudJumpMultiplier;
+        }
+        else
+        {
+            currentJumpForce = jumpForce;
+        }
 
         //jump if the player is grounded and the space bar is down
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity); //executes jump force with the kinematic equation
+            velocity.y = Mathf.Sqrt(currentJumpForce * -2f * gravity); //executes jump force with the kinematic equation
         }
 
         // Reset upward velocity if hitting the ceiling.
@@ -104,6 +136,7 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -80f, 80f); //clamps the rotation
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0); //rotates the camera
     }
+
     public void PlayerMove(Vector2 input)
     {
 
@@ -111,10 +144,25 @@ public class PlayerController : MonoBehaviour
         //calculate the move direction
         Vector3 moveDirection = (transform.right * moveInput.x + transform.forward * moveInput.y);
 
-        //move the player
-        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-    }
+        // Calcuate the player speed based on if they are sprinting or on Ice.
+        // Calculate the player height based on if they are on clouds and jump.
 
+        float currentSpeed = moveSpeed;
+        float currentJumpForce = jumpForce;
+
+        if (isSprinting)
+        {
+            currentSpeed = sprintSpeed;
+        }
+
+        if (isOnIce)
+        {
+            currentSpeed *= iceSpeedMultiplier;
+        }
+
+        //move the player
+        characterController.Move(moveDirection * currentSpeed * Time.deltaTime);
+    }
 
     public void SetMouseSensitivity(float s)
     {

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
@@ -15,6 +16,7 @@ public class Bullet : MonoBehaviour {
     public bool explodeOnTouch = true;
 
     private int collisions;
+    private ContactPoint contact;
     private PhysicMaterial mat;
     private int damage;
     private GunController.Element element;
@@ -77,7 +79,6 @@ public class Bullet : MonoBehaviour {
         {
             case GunController.Element.Fire:
                 this.GetComponent<Renderer>().material = fireMaterial;
-                // Set the trail renderer colors to match the material
                 this.GetComponent<TrailRenderer>().startColor = fireMaterial.color;
                 this.GetComponent<TrailRenderer>().endColor = Color.white;
                 break;
@@ -127,52 +128,80 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision collision){
+    private void OnCollisionEnter(Collision collision) {
         collisions++;
 
         ElementalObject elementalObject = collision.gameObject.GetComponent<ElementalObject>();
-        if (elementalObject != null) {
+        if (elementalObject != null)
+        {
             // Get the contact point and normal from the collision
-            ContactPoint contact = collision.GetContact(0);
+            contact = collision.GetContact(0);
+            Debug.Log("Bullet hit: " + collision.gameObject.name);
             elementalObject.InteractWithElement(element, contact.point, contact.normal);
-            Invoke("Delay", 0.05f);
-        }
 
-        if(collision.collider.CompareTag("Enemy") && explodeOnTouch) {
-            Explode();
-        }
+            if (element == GunController.Element.Fire)
+            {
+                if (collision.gameObject.CompareTag("IceSheet") || collision.gameObject.CompareTag("Burnable"))
+                {
 
-        if (collision.gameObject.CompareTag("Player")) {
-            Explode();
-        }
-
-        if(collision.gameObject.CompareTag("Puzzle")) {
-            //Debug.Log("Puzzle Hit");
-            TargetBehavior targetBehavior = collision.gameObject.GetComponentInParent<TargetBehavior>();
-            if (targetBehavior != null) {
-                //Debug.Log("TargetBehavior Found");
-                targetBehavior.puzzleCollision();
-                Invoke("Delay", 0.05f);
-            } else {
-                //Debug.Log("TargetBehavior Not Found");
+                    Invoke("Delay", 0.05f);
+                }
+                else if (collision.gameObject.CompareTag("Bomb"))
+                {
+                    // don't impart a lot of force any force
+                    Bomb bomb = collision.gameObject.GetComponent<Bomb>();
+                    bomb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    Invoke("Delay", 0.05f);
+                }
+            }
+            if (element == GunController.Element.Ice)
+            {
+                if (collision.gameObject.CompareTag("Bomb"))
+                {
+                    // don't impart a lot of force any force
+                    Bomb bomb = collision.gameObject.GetComponent<Bomb>();
+                    bomb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    Invoke("Delay", 0.05f);
+                }
             }
         }
+        if (collision.gameObject.CompareTag("Enemy") && explodeOnTouch)
+        {
+            Explode();
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Explode();
+        }
+
+        if (collision.gameObject.CompareTag("Puzzle"))
+        {
+            Debug.Log("Bullet hit: " + collision.gameObject.name);
+            TargetBehavior targetBehavior = collision.gameObject.GetComponentInParent<TargetBehavior>();
+            if (targetBehavior != null)
+            {
+                Debug.Log("targetBehavior Found");
+                targetBehavior.puzzleCollision();
+                Invoke("Delay", 0.05f);
+            }
+            else if (targetBehavior == null)
+            {
+                Debug.Log("targetBehavior Not Found");
+            }
+
+        }
     }
-/*            // The collision point as the closest point on bounds
-            Vector3 hitPoint = collision.ClosestPoint(transform.position);
-            // Calculate normal as direction from our position to hit point (normalized)
-            Vector3 hitNormal = (hitPoint - transform.position).normalized;
-            elementalObject.InteractWithElement(element, hitPoint, hitNormal);
-            Invoke("Delay", 0.05f);*/
+
     private void OnTriggerEnter(Collider collision){
         ElementalObject elementalObject = collision.gameObject.GetComponent<ElementalObject>();
         if (elementalObject != null) {
-            Invoke("Delay", 0.05f);
             RaycastHit hit;
             if (Physics.Raycast(transform.position - transform.forward, 
                                 transform.forward, out hit)) {
                 elementalObject.InteractWithElement(element, hit.point, hit.normal);
             }
+            Invoke("Delay", 0.05f);
         }
     }
 

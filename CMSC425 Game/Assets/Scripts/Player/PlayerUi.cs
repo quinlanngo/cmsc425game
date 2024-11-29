@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class PlayerUi : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI promptText; // Text to display the score
     [SerializeField]
-    private TextMeshProUGUI infoText; // Show how many bullets.
+    private TextMeshProUGUI infoText; // Text to display the info about item
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +23,13 @@ public class PlayerUi : MonoBehaviour
         promptText.text = promptMessage;
     }
 
-    public void UpdateInfoText(string info, Color color, Color outlineColor) {
-        infoText.SetText(info);
-        infoText.faceColor = color;
-        infoText.outlineColor = outlineColor;
+    public void updateInfoText(string info, Color faceColor, Color outLineColor)
+    {
+        if (infoText != null)
+        {
+            infoText.SetText(info);
+            infoText.faceColor = faceColor;
+            infoText.outlineColor = outLineColor;
+        }
     }
-
 }
