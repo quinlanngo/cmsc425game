@@ -14,10 +14,12 @@ public class GunController : IInventoryItem
     public bool allowButtonHold;
     private int bulletsShot;
 
+    public float shotVolume;
+
     // Static flags for element availability, just eable after each level complition
     public static bool fireEnabled = true;
     public static bool iceEnabled = true;
-    public static bool airEnabled = false;
+    public static bool airEnabled = true;
     // Note: No flag for default as it's always enabled
 
     // Dictionary to store bullets for each element
@@ -39,6 +41,12 @@ public class GunController : IInventoryItem
         Default
     }
     public Element currElement = Element.Default;
+//SFX 
+    [SerializeField] private AudioClip defaultShot;
+    [SerializeField] private AudioClip fireShot;
+    [SerializeField] private AudioClip iceShot;
+    [SerializeField] private AudioClip airShot;
+    [SerializeField] private AudioClip recharge;
 
     // Helper method to check if an element is enabled
     private bool IsElementEnabled(Element element) {
@@ -66,6 +74,7 @@ public class GunController : IInventoryItem
 
         // Only reload current element if its bullets are less than magazine size
         if (Input.GetKeyDown(KeyCode.R) && elementBullets[currElement] < magazineSize && !reloading) {
+            SFXManager.instance.PlaySFXClip(recharge, this.transform, 1f);
             Reload();
         }
 
@@ -125,7 +134,6 @@ public class GunController : IInventoryItem
                 break;
         }
         energyBar.fillRect.GetComponent<Image>().color = sliderColor;
-
         if (isReloadAnimating) {
             float reloadProgress = (Time.time - reloadStartTime) / reloadtime;
             if (reloadProgress >= 1f) {
@@ -137,6 +145,7 @@ public class GunController : IInventoryItem
                 // Reload animation in progress
                 float startValue = (float)bulletsAtReloadStart / magazineSize;
                 energyBar.value = Mathf.Lerp(startValue, 1f, reloadProgress);
+                
             }
         }
         else {
@@ -189,6 +198,24 @@ public class GunController : IInventoryItem
         // add forces to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(cam.transform.up * upwardForce, ForceMode.Impulse);
+        
+        //play sound depending on the current element
+        if (currElement == Element.Default)
+        {
+            SFXManager.instance.PlaySFXClip(defaultShot, this.transform, 0.5f);
+        }
+        else if (currElement == Element.Fire)
+        {
+            SFXManager.instance.PlaySFXClip(fireShot, this.transform, 0.5f);
+        }
+        else if (currElement == Element.Ice)
+        {
+            SFXManager.instance.PlaySFXClip(iceShot, this.transform, 0.5f);
+        }
+        else if (currElement == Element.Air)
+        {
+            SFXManager.instance.PlaySFXClip(airShot, this.transform, 0.5f);
+        }
 
         // Decrease bullets for current element only
         elementBullets[currElement]--;

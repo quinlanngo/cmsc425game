@@ -5,6 +5,17 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController characterController;
 
+    //SFX
+    [SerializeField] private AudioClip jump;
+    [SerializeField] private AudioClip splash;
+    private AudioClip[] currentFootsteps; // Footsteps for the current surface
+    [SerializeField] private AudioClip[] stoneFootsteps;
+    [SerializeField] private AudioClip[] grassFootsteps;
+
+    private float footstepInterval = 1f; // Base interval for footsteps
+    private float footstepTimer = 0f;     // Timer for footstep sounds
+    private bool isMoving = false;       // Whether the player is currently moving
+
 
     //Variables for modifying and storing player movement information
     #region Movement Variables
@@ -46,6 +57,8 @@ public class PlayerController : MonoBehaviour
     {
         //Get the component references for the controllers
         characterController = GetComponent<CharacterController>();
+        
+        
     }
 
     //ALL INPUT SHOULD GO HERE
@@ -55,7 +68,8 @@ public class PlayerController : MonoBehaviour
         Vector2 movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         //if the player is on ice or clouds, they can't sprint. Otherwise, they can.
-        isSprinting = !isOnIce && !isOnCloud && Input.GetKey(KeyCode.LeftShift);
+        //isSprinting = !isOnIce && !isOnCloud && Input.GetKey(KeyCode.LeftShift);
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
 
 
         //sphere cast from the player's position downwards. If the sphere intersects with the ground, then the player is grounded.
@@ -63,6 +77,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             //check if the player is on ice or clouds
+            UpdateFootstepSounds(hitInfo.collider.tag);
             isOnIce = hitInfo.collider.CompareTag("IceSheet");
             isOnCloud = hitInfo.collider.CompareTag("Cloud");
         }
@@ -92,7 +107,9 @@ public class PlayerController : MonoBehaviour
         //jump if the player is grounded and the space bar is down
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            SFXManager.instance.PlaySFXClip(jump, this.transform, 1f);
             velocity.y = Mathf.Sqrt(currentJumpForce * -2f * gravity); //executes jump force with the kinematic equation
+            
         }
 
         // Reset upward velocity if hitting the ceiling.
@@ -101,6 +118,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Hit Ceiling");
             velocity.y = 0;
         }
+        HandleFootsteps();
     }
 
     //ALL PHYSICS STUFF SHOULD GO HERE
@@ -168,5 +186,55 @@ public class PlayerController : MonoBehaviour
     {
         xSensitivity = s;
         ySensitivity = s;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Water"))
+        {
+            SFXManager.instance.PlaySFXClip(splash, this.transform, 1f);
+        }
+
+    }
+    private void UpdateFootstepSounds(string tag)
+    {
+        switch (tag)
+        {
+            case "Stone":
+                currentFootsteps = stoneFootsteps;
+                break;
+            case "Grass":
+                currentFootsteps = grassFootsteps;
+                break;
+            default:
+                currentFootsteps = stoneFootsteps; // No footsteps for unhandled surfaces
+                break;
+        }
+    }
+    public void HandleFootsteps()
+    {
+        // Check if the player is moving and grounded
+        isMoving = moveInput != Vector2.zero && isGrounded;
+
+        if (isMoving)
+        {
+            // Calculate the footstep interval based on movement speed
+            float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
+            if (isOnIce) currentSpeed *= iceSpeedMultiplier;
+
+            footstepInterval = 1f / (currentSpeed / 3f); // Faster interval for higher speeds
+
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                SFXManager.instance.PlaySFXClip(currentFootsteps, this.transform, 1f);
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            // Reset timer if not moving
+            footstepTimer = 0f;
+        }
     }
 }

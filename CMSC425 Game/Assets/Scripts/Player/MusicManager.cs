@@ -14,28 +14,33 @@ public class MusicManager : MonoBehaviour
 
     public GunController.Element currentElement;
 
-    private GunController gunController; // Reference to the GunController script
+    [SerializeField] private GunController gunController; // Reference to the GunController script
     private Dictionary<GunController.Element, AudioSource> elementTracks;
 
     private void Start()
     {
-        // Find the GunController in the scene
-        
-        if (gunController == null)
-        {
-            Debug.LogError("GunController not found in the scene!");
-            return;
-        }
-
         // Initialize the dictionary to map elements to audio sources
-      
+        elementTracks = new Dictionary<GunController.Element, AudioSource>
+        {
+            { GunController.Element.Default, neutralTrack },
+            { GunController.Element.Fire, fireTrack },
+            { GunController.Element.Ice, iceTrack },
+            { GunController.Element.Air, airTrack }
+        };
 
+        // Synchronize all tracks
         foreach (var track in elementTracks.Values)
         {
-            Debug.Log("Music Starting");
             track.loop = true; // Ensure looping
-            track.Play();      // Start playing the track
             track.volume = 0f; // Start muted
+            track.Play();
+        }
+
+        // Ensure synchronization by setting timeSamples to 0 for all tracks
+        int syncTimeSamples = 0;
+        foreach (var track in elementTracks.Values)
+        {
+            track.timeSamples = syncTimeSamples;
         }
 
         // Set the starting track to max volume
@@ -47,16 +52,12 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        gunController = GetComponentInChildren<GunController>();
-        if (gunController == null) return;
-
-        elementTracks = new Dictionary<GunController.Element, AudioSource>
+        // Ensure gunController is assigned
+        if (gunController == null)
         {
-            { GunController.Element.Default, neutralTrack },
-            { GunController.Element.Fire, fireTrack },
-            { GunController.Element.Ice, iceTrack },
-            { GunController.Element.Air, airTrack }
-        };
+            Debug.LogError("GunController reference is missing!");
+            return;
+        }
 
         // Get the current element from the GunController
         currentElement = gunController.currElement;

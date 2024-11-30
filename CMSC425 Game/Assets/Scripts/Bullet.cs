@@ -137,8 +137,15 @@ public class Bullet : MonoBehaviour {
             // Get the contact point and normal from the collision
             contact = collision.GetContact(0);
             Debug.Log("Bullet hit: " + collision.gameObject.name);
-            elementalObject.InteractWithElement(element, contact.point, contact.normal);
-
+            Vector3 bulletDirection = GetComponent<Rigidbody>().velocity.normalized;
+            elementalObject.InteractWithElement(element, contact.point, contact.normal, bulletDirection);
+            if (element == GunController.Element.Air)
+            {
+                if (collision.gameObject.CompareTag("Cloud"))
+                {
+                    Invoke("Delay", 0.05f);
+                }
+            }
             if (element == GunController.Element.Fire)
             {
                 if (collision.gameObject.CompareTag("IceSheet") || collision.gameObject.CompareTag("Burnable"))

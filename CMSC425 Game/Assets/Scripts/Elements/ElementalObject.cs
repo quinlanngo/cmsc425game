@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//Abstract base class for objects that can interact with different elements
+// Abstract base class for objects that can interact with different elements
 public abstract class ElementalObject : MonoBehaviour
 {
+    // Default implementation of interaction with all parameters.
+    // Derived classes can override this if they need detailed interaction.
+    public virtual void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal, Vector3 bulletDirection)
+    {
+        InteractWithElement(element, hitPoint, hitNormal);
+    }
+    // Optional method with fewer parameters (hitPoint and hitNormal)
+    public virtual void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal)
+    {
 
-    // Abstract method that must be implemented by derived classes.
-    // This method is called when an object is interacted with a specific element.
-    // Parameters:
-    // - element: The element type (Fire, Ice, Air, Lightning) interacting with the object. This Enum is found in GunController
-    // - hitPoint: The point of contact where the bullet hit the elemental object.
-    // - hitNormal: The surface normal at the point of interaction.
-    public abstract void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal);
+    }
+  
+      
+ 
+
 }

@@ -1,11 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cloud : MonoBehaviour
+public class Cloud : ElementalObject
 {
-    public float moveSpeed = 2f;
-    public float detectionRadius = 1f; // Radius to check for Wind objects
-    private LayerMask windLayerMask;   // Layer mask for Wind objects
+    public float moveSpeed = 2f;         // Speed of movement due to wind
+    public float detectionRadius = 1f;  // Radius to check for Wind objects
+    private LayerMask windLayerMask;    // Layer mask for Wind objects
+    private Vector3 externalForce = Vector3.zero; // Force applied by bullets
+    private float externalForceDampening = 5f;    // Dampening factor for force decay
+
+    public override void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal, Vector3 bulletDirection)
+    {
+        if (element == GunController.Element.Air)
+        {
+            // Use the hit normal for movement direction
+            MoveCloud(bulletDirection);
+        }
+    }
 
     private void Start()
     {
@@ -33,6 +44,22 @@ public class Cloud : MonoBehaviour
         {
             transform.position += moveSpeed * movementDirection.normalized * Time.deltaTime;
         }
+
+        // Apply any external force from air bullets and decay it over time
+        if (externalForce != Vector3.zero)
+        {
+            transform.position += externalForce * Time.deltaTime;
+            externalForce = Vector3.Lerp(externalForce, Vector3.zero, externalForceDampening * Time.deltaTime);
+        }
+    }
+
+    private void MoveCloud(Vector3 direction)
+    {
+        // Apply a short nudge in the direction
+        externalForce += direction.normalized * moveSpeed * 10f;
+
+        // Optional: Log the movement for debugging
+        Debug.Log($"Cloud nudged by air bullet in direction: {direction}");
     }
 
     private void OnDrawGizmosSelected()

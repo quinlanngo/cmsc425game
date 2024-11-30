@@ -1571,6 +1571,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed1b0d81f5fe5742ad33d014480342a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jump: {fileID: 8300000, guid: 99d01e1ab1aaa9a45a397a7c3dc54e6b, type: 3}
+  splash: {fileID: 8300000, guid: 869fe737a5831e04180eb4f6c1f4ce0f, type: 3}
+  stoneFootsteps:
+  - {fileID: 8300000, guid: 9899a640ef76ad74cb9e30a389abb306, type: 3}
+  - {fileID: 8300000, guid: 540d12ab8b69dd349950c483e38281cd, type: 3}
+  - {fileID: 8300000, guid: 308143f788fff6d469c906b38bd6a0da, type: 3}
+  grassFootsteps:
+  - {fileID: 8300000, guid: 6f39707298d4507478582e268be73d3e, type: 3}
+  - {fileID: 8300000, guid: fbce03b56ab3b5d46a722bde741c14e6, type: 3}
+  - {fileID: 8300000, guid: e2f2a3fac0367564f9bb362fc2d354e2, type: 3}
   moveSpeed: 8
   sprintSpeed: 15
   iceSpeedMultiplier: 2
@@ -1617,7 +1627,7 @@ MonoBehaviour:
   interactDistance: 5
   mask:
     serializedVersion: 2
-    m_Bits: 16768
+    m_Bits: 384
 --- !u!114 &2227788109393789824
 MonoBehaviour:
   m_ObjectHideFlags: 0

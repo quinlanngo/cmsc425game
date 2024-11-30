@@ -9,17 +9,13 @@ public class Water : ElementalObject
     //Reference to the ice sheet that is spawned. Is a square since the cylinders colliders are not accurate.
     [SerializeField] private GameObject iceSheetPrefab;
     [SerializeField] private GameObject cloudPrefab;
+    [SerializeField] private AudioClip freeze;
 
     private GameObject currentCloud;
     private bool cloudIsMoving = false;
     private float moveSpeed = 2f;
-    private float cloudHeight = 3f;
-    void Update()
-    {
-        if (cloudIsMoving) { currentCloud.transform.position += Vector3.up * moveSpeed * Time.deltaTime; }
-        if (currentCloud != null && currentCloud.transform.position.y >= transform.position.y + cloudHeight) { cloudIsMoving = false; };
-
-    }
+    private float cloudHeight = 5f;
+   
     public override void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal)
     {
         if (element == GunController.Element.Ice)
@@ -36,8 +32,11 @@ public class Water : ElementalObject
 
     private GameObject Freeze(Vector3 hitPoint, Vector3 hitNormal)
     {
+        
         //spawns the prefab at the location of the bullet.
         GameObject iceSheet = Instantiate(iceSheetPrefab, hitPoint, Quaternion.identity);
+
+        SFXManager.instance.PlaySFXClip(freeze, iceSheet.transform, 1f);
         // Set iceSheet 's rotation to match the surface normal
         iceSheet.transform.up = transform.up;
         // Set iceSheet parent to be water object
@@ -54,13 +53,7 @@ public class Water : ElementalObject
 
     private void SpawnCloud(Vector3 hitPoint)
     {
-        //spawns the prefab at the location of the bullet.
-        if (currentCloud != null)
-        {
-            Destroy(currentCloud);
-        }
-        currentCloud = Instantiate(cloudPrefab, hitPoint, Quaternion.identity);
-        cloudIsMoving = true;
+        currentCloud = Instantiate(cloudPrefab, hitPoint + new Vector3(0, cloudHeight, 0), Quaternion.identity);
     }
 
 }

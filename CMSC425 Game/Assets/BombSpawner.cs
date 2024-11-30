@@ -28,6 +28,15 @@ public class BombDispenser : MonoBehaviour
             
             StartCoroutine(SpawnBombWithDelay());
         }
+        /*
+        if (currentBomb != null && Vector3.Distance(currentBomb.transform.position, this.transform.position) > 50f) {
+            Bomb bombComponent = currentBomb.GetComponent<Bomb>();
+            if (bombComponent != null)
+            {
+                bombComponent.Explode();
+
+            }
+        } */
     }
 
     private IEnumerator SpawnBombWithDelay()
