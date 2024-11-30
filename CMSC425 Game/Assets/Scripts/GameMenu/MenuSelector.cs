@@ -9,11 +9,13 @@ public class MenuSelector : MonoBehaviour
     public GameObject mainPanel;          // The main menu panel
     public GameObject checkpointsMenu;    // The checkpoints menu under SelectionPanel
     public GameObject optionsMenu;        // The options menu under SelectionPanel
+    public GameObject hintMenu;        // The hints menu under SelectionPanel
     public GameObject deathText;          // The death text object
 
     [Header("Buttons")]
     public Button checkpointsButton;      // Button to open checkpoints menu
     public Button optionsButton;          // Button to open options menu
+    public Button hintButton;          // Button to open hint menu
 
     [Header("Checkpoints")]
     public Transform checkpointsContainer; // Parent container of checkpoint objects
@@ -23,6 +25,7 @@ public class MenuSelector : MonoBehaviour
         // Add listeners for the buttons
         checkpointsButton.onClick.AddListener(ShowCheckpointsMenu);
         optionsButton.onClick.AddListener(ShowOptionsMenu);
+        hintButton.onClick.AddListener(ShowHintsMenu);
 
         // Initially activate the main panel and deactivate others
         ActivateMainPanel();
@@ -39,14 +42,23 @@ public class MenuSelector : MonoBehaviour
     {
         checkpointsMenu.SetActive(true);
         optionsMenu.SetActive(false);
+        hintMenu.SetActive(false);
+
 
         PopulateCheckpointNames();
     }
 
     public void ShowOptionsMenu()
     {
-        checkpointsMenu.SetActive(false);
         optionsMenu.SetActive(true);
+        checkpointsMenu.SetActive(false);
+        hintMenu.SetActive(false);
+    }
+    public void ShowHintsMenu()
+    {
+        optionsMenu.SetActive(false);
+        checkpointsMenu.SetActive(false);
+        hintMenu.SetActive(true);
     }
 
     public void ShowDeathText(bool show)

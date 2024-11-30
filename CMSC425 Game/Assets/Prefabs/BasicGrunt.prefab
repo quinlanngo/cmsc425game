@@ -390,7 +390,7 @@ MonoBehaviour:
   - {fileID: 7971018399155320317}
   - {fileID: 1500401628594085550}
   - {fileID: 9179456692970732438}
-  detectionRadius: 5
+  detectionRadius: 10
   health: 100
   maxHealth: 100
   floatingHealthBar: {fileID: 362861794160669079}
@@ -456,7 +456,7 @@ NavMeshAgent:
   m_Radius: 1
   m_Speed: 5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 40
   m_AngularSpeed: 120
   m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
