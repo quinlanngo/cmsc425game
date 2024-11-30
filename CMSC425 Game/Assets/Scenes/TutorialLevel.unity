@@ -2771,6 +2771,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8091132604151060672, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9063079
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091132604151060672, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.42261827
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091132604151060672, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6200,6 +6212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Puzzle
   Message: Start Puzzle
+  handle: {fileID: 1767552293}
 --- !u!4 &1445607470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
@@ -7329,6 +7342,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 209477690}
   m_SourcePrefab: {fileID: 100100000, guid: a42a273c2fd84384794dc59ec0142167, type: 3}
+--- !u!1 &1767552293 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 270668371211418519, guid: e8d970c3b2bcf544b82c8efdf1f790b7, type: 3}
+  m_PrefabInstance: {fileID: 581056733}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1782938621 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b8c1d4ba84c86942999f1a3abc83b6d, type: 3}

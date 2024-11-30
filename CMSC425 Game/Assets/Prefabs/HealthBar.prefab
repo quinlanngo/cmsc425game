@@ -235,7 +235,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.64
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -284,8 +284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efae8e89da4d24ba0847b3c6dc89e3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  camera: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   slider: {fileID: 3407455501693559049}
 --- !u!1 &5835683092343803117
