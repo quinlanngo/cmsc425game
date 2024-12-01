@@ -143,7 +143,7 @@ public class Bullet : MonoBehaviour {
             {
                 if (collision.gameObject.CompareTag("Cloud"))
                 {
-                    Invoke("Delay", 0.05f);
+                    Invoke("Delay", 0f);
                 }
             }
             if (element == GunController.Element.Fire)

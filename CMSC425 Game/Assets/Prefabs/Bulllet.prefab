@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7028460242391424409}
   - component: {fileID: 3470716858854117153}
   - component: {fileID: 2203405147306580368}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Bulllet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ MonoBehaviour:
   impactEffect: {fileID: 0}
   whatIsEnemies:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   bounciness: 0.572
   useGravity: 0
   explosionRadius: 0.05

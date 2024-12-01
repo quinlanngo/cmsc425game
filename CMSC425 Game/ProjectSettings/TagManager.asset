@@ -6,6 +6,17 @@ TagManager:
   tags:
   - Ground
   - Bullet
+  - Burnable
+  - Bomb
+  - IceSheet
+  - Cloud
+  - Puzzle
+  - Enemy
+  - Grass
+  - Enemy Bullet
+  - Water
+  - EnemyBullet
+  - Wind
   layers:
   - Default
   - TransparentFX
@@ -17,12 +28,12 @@ TagManager:
   - IInteractable
   - IInventoryItem
   - Puzzle
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Bullet
+  - Player
+  - 'Enemy '
+  - EnemyBullet
+  - Bomb
+  - Wind
   - 
   - 
   - 

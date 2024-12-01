@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
             isOnCloud = false;
         }
 
-        isCeiling = Physics.SphereCast(transform.position, sphereRadius, Vector3.up, out RaycastHit ceilingHitInfo, ceilingCheckDistance);
+        isCeiling = Physics.SphereCast(transform.position, sphereRadius, Vector3.up, out RaycastHit ceilingHitInfo, ceilingCheckDistance, jumpableGround);
 
 
         HandleLook(mouseInput); //handle camera movement

@@ -13,8 +13,7 @@ public class Cloud : ElementalObject
     {
         if (element == GunController.Element.Air)
         {
-            // Use the hit normal for movement direction
-            MoveCloud(bulletDirection);
+            ApplyBulletForce(bulletDirection);
         }
     }
 
@@ -27,9 +26,8 @@ public class Cloud : ElementalObject
     {
         Vector3 movementDirection = Vector3.zero;
 
-        // Find all colliders within the detection radius that are on the Wind layer
+        // Calculate wind force
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, windLayerMask);
-
         foreach (var collider in colliders)
         {
             Wind wind = collider.GetComponent<Wind>();
@@ -39,13 +37,13 @@ public class Cloud : ElementalObject
             }
         }
 
-        // Apply movement based on the cumulative wind direction
+        // Apply wind-based movement
         if (movementDirection != Vector3.zero)
         {
             transform.position += moveSpeed * movementDirection.normalized * Time.deltaTime;
         }
 
-        // Apply any external force from air bullets and decay it over time
+        // Apply external bullet force and decay over time
         if (externalForce != Vector3.zero)
         {
             transform.position += externalForce * Time.deltaTime;
@@ -53,18 +51,30 @@ public class Cloud : ElementalObject
         }
     }
 
-    private void MoveCloud(Vector3 direction)
+    private void ApplyBulletForce(Vector3 originalDirection)
     {
-        // Apply a short nudge in the direction
-        externalForce += direction.normalized * moveSpeed * 10f;
+        // Get the player's position
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogWarning("Player object not found! Make sure the Player has the correct tag.");
+            return;
+        }
 
-        // Optional: Log the movement for debugging
-        Debug.Log($"Cloud nudged by air bullet in direction: {direction}");
+        // Recalculate direction from player to cloud, ignoring the y-axis
+        Vector3 playerPosition = player.transform.position;
+        Vector3 directionToCloud = transform.position - playerPosition;
+        directionToCloud.y = 0; // Ignore y-axis
+        directionToCloud = directionToCloud.normalized;
+
+        // Apply bullet force in the recalculated direction
+        externalForce += directionToCloud * moveSpeed * 10f;
+        Debug.Log($"Cloud hit by bullet, recalculated force direction: {directionToCloud}");
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Visualize the detection radius in the editor
+        // Visualize wind detection radius in the editor
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
