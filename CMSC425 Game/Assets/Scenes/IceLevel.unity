@@ -2568,12 +2568,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203684822}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.63, y: 12.95, z: 11.65}
-  m_LocalScale: {x: 4.5, y: 1, z: 4.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00799942, y: -0.082, z: -0.049998473}
+  m_LocalScale: {x: 0.90000004, y: 0.04, z: 0.90000004}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 969138153}
+  m_Father: {fileID: 889722715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &203684824
 MonoBehaviour:
@@ -4279,6 +4279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iceSheetPrefab: {fileID: 4279128053139565512, guid: 182b9f19600f10d49ac570fccd5bc741, type: 3}
   cloudPrefab: {fileID: 7032740708731049386, guid: 5cc68c862a383254f89d1e8899c0b841, type: 3}
+  freeze: {fileID: 0}
 --- !u!65 &494153886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4547,6 +4548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iceSheetPrefab: {fileID: 4279128053139565512, guid: 182b9f19600f10d49ac570fccd5bc741, type: 3}
   cloudPrefab: {fileID: 7032740708731049386, guid: 5cc68c862a383254f89d1e8899c0b841, type: 3}
+  freeze: {fileID: 0}
 --- !u!65 &526239666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7839,7 +7841,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 969138153}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalScale.x
@@ -7855,7 +7857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.33
+      value: 10.669998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7863,7 +7865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 105
+      value: 11.899994
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7871,7 +7873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
       propertyPath: m_LocalRotation.y
@@ -7899,9 +7901,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 203684823}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
+--- !u!4 &889722715 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b2a88949128b0fc47bdeed62cd727612, type: 3}
+  m_PrefabInstance: {fileID: 889722714}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &892821135
 GameObject:
   m_ObjectHideFlags: 0
@@ -8675,7 +8685,7 @@ Transform:
   - {fileID: 591951020}
   - {fileID: 639869383}
   - {fileID: 74365257}
-  - {fileID: 203684823}
+  - {fileID: 889722715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &972097414
@@ -9606,11 +9616,17 @@ MonoBehaviour:
   magazineSize: 6
   bulletsPerTap: 1
   allowButtonHold: 0
+  shotVolume: 0
   cam: {fileID: 164299801}
   attackPoint: {fileID: 2028476728}
   muzzleFlash: {fileID: 0}
   energyBar: {fileID: 98495445}
   currElement: 3
+  defaultShot: {fileID: 0}
+  fireShot: {fileID: 0}
+  iceShot: {fileID: 0}
+  airShot: {fileID: 0}
+  recharge: {fileID: 0}
 --- !u!54 &1041554714
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12782,6 +12798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iceSheetPrefab: {fileID: 4279128053139565512, guid: 182b9f19600f10d49ac570fccd5bc741, type: 3}
   cloudPrefab: {fileID: 7032740708731049386, guid: 5cc68c862a383254f89d1e8899c0b841, type: 3}
+  freeze: {fileID: 0}
 --- !u!65 &1419123334
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13144,6 +13161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iceSheetPrefab: {fileID: 4279128053139565512, guid: 182b9f19600f10d49ac570fccd5bc741, type: 3}
   cloudPrefab: {fileID: 7032740708731049386, guid: 5cc68c862a383254f89d1e8899c0b841, type: 3}
+  freeze: {fileID: 0}
 --- !u!65 &1436532192
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15861,6 +15879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iceSheetPrefab: {fileID: 4279128053139565512, guid: 182b9f19600f10d49ac570fccd5bc741, type: 3}
   cloudPrefab: {fileID: 7032740708731049386, guid: 5cc68c862a383254f89d1e8899c0b841, type: 3}
+  freeze: {fileID: 0}
 --- !u!65 &1651087428
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20969,4 +20988,3 @@ SceneRoots:
   - {fileID: 1836782753}
   - {fileID: 722252479}
   - {fileID: 651299012}
-  - {fileID: 889722714}
