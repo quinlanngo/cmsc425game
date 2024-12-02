@@ -94,6 +94,7 @@ public class GruntAI : MonoBehaviour
         if (health <= 0)
         {
             Die();
+            EndOfTutorialLevel.gruntsDead  =  EndOfTutorialLevel.gruntsDead + 1;
         }
     }
 
