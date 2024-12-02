@@ -9,6 +9,8 @@ public class GameMenu : MonoBehaviour
     public Button resumeButton;        // Reference to Resume button
     public TextMeshProUGUI mouseSensitivity;
     public TextMeshProUGUI gameVolume;
+    public TextMeshProUGUI sfxVolume;
+    public TextMeshProUGUI backgroundVolume;
 
     private bool isPaused = false;
 
@@ -16,6 +18,11 @@ public class GameMenu : MonoBehaviour
     {
         menuPanel.SetActive(false); // Hide menu by default
         gameObject.GetComponent<MenuSelector>().ShowDeathText(false);
+
+        mouseSensitivity.text = $"Mouse Sensitivity: 100%";
+        gameVolume.text = $"Master Volume: 100%";
+        gameVolume.text = $"Master Volume: 100%";
+        gameVolume.text = $"Master Volume: 100%";
 
     }
 
@@ -152,6 +159,23 @@ public class GameMenu : MonoBehaviour
         {
             Debug.LogWarning("Player object not found.");
         }
+    }
+
+    public void SetBackgroundMusicVolume(float newVolume)
+    {
+        SoundMixerManager manager = FindObjectOfType<SoundMixerManager>();
+        manager.SetMusicLevel(-80f + 0.8f * newVolume);
+        backgroundVolume.text = $"Set Background Music Volume: {newVolume}";
+        Debug.Log($"Background Music set to: {newVolume}");
+    }
+
+    public void SetSFXVolume(float newVolume)
+    {
+
+        SoundMixerManager manager = FindObjectOfType<SoundMixerManager>();
+        manager.SetSFXLevel(-80f + 0.8f * newVolume);
+        sfxVolume.text = $"Set SFX Volume: {newVolume}";
+        Debug.Log($"SFX volume set to: {newVolume}");
     }
 }
 
