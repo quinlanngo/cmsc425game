@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
+//Refrence: https://www.youtube.com/watch?v=Ryi9JxbMCFM&list=PLh9SS5jRVLAleXEcDTWxBF39UjyrFc6Nb
+
 public class Bullet : MonoBehaviour {
 
     public Rigidbody rb;

@@ -8,12 +8,16 @@ public class FireShooter : MonoBehaviour
     // Duration that the fire shooter stays active
     public float activeDuration = 1.0f;
 
+    // Alwasy active
+    public bool alwaysActive = false;
+
     // Controls whether the fire shooter is active
     private bool isActive = false;
 
     // Reference to the Renderer component of the fire shooter
     private Renderer fireRenderer;
     private ParticleSystem particlesystem;
+    
     PlayerHealth health;
 
     private void Start()
@@ -23,7 +27,15 @@ public class FireShooter : MonoBehaviour
         particlesystem = GetComponent<ParticleSystem>();
         
         // Start the toggle coroutine
-        StartCoroutine(ToggleFire());
+        if(!alwaysActive)
+        {
+            StartCoroutine(ToggleFire());
+        } 
+        else
+        {
+            isActive = true;
+        }
+        
     }
 
    

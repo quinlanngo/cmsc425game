@@ -180,6 +180,9 @@ MonoBehaviour:
   bulletsPerTap: 6
   allowButtonHold: 0
   shotVolume: 0
+  fireEnabled: 1
+  iceEnabled: 1
+  airEnabled: 0
   cam: {fileID: 963194227}
   attackPoint: {fileID: 1175490975}
   muzzleFlash: {fileID: 0}
@@ -190,6 +193,10 @@ MonoBehaviour:
   iceShot: {fileID: 0}
   airShot: {fileID: 0}
   recharge: {fileID: 0}
+  defaultSwitch: {fileID: 0}
+  fireSwitch: {fileID: 0}
+  iceSwitch: {fileID: 0}
+  airSwitch: {fileID: 0}
 --- !u!114 &75538641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,6 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireParticles: {fileID: 1248619100}
   burnDuration: 3
+  burn: {fileID: 0}
 --- !u!65 &264863651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1272,6 +1280,7 @@ MonoBehaviour:
   launchAngle: 40
   tick: {fileID: 0}
   explode: {fileID: 0}
+  unPrime: {fileID: 0}
 --- !u!82 &485742787
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2529,7 +2538,7 @@ Transform:
   m_GameObject: {fileID: 879800050}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.31, z: 2.69}
+  m_LocalPosition: {x: -6.652, y: 0.31, z: 7.69}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3053,6 +3062,9 @@ MonoBehaviour:
   bulletsPerTap: 1
   allowButtonHold: 0
   shotVolume: 0
+  fireEnabled: 1
+  iceEnabled: 1
+  airEnabled: 0
   cam: {fileID: 963194227}
   attackPoint: {fileID: 1057754487}
   muzzleFlash: {fileID: 0}
@@ -3063,6 +3075,10 @@ MonoBehaviour:
   iceShot: {fileID: 0}
   airShot: {fileID: 0}
   recharge: {fileID: 0}
+  defaultSwitch: {fileID: 0}
+  fireSwitch: {fileID: 0}
+  iceSwitch: {fileID: 0}
+  airSwitch: {fileID: 0}
 --- !u!65 &1138060159
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8618,6 +8634,9 @@ MonoBehaviour:
   bulletsPerTap: 2
   allowButtonHold: 1
   shotVolume: 0
+  fireEnabled: 1
+  iceEnabled: 1
+  airEnabled: 0
   cam: {fileID: 963194227}
   attackPoint: {fileID: 1193956352}
   muzzleFlash: {fileID: 0}
@@ -8628,6 +8647,10 @@ MonoBehaviour:
   iceShot: {fileID: 0}
   airShot: {fileID: 0}
   recharge: {fileID: 0}
+  defaultSwitch: {fileID: 0}
+  fireSwitch: {fileID: 0}
+  iceSwitch: {fileID: 0}
+  airSwitch: {fileID: 0}
 --- !u!54 &1713669195
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8944,6 +8967,9 @@ MonoBehaviour:
   bulletsPerTap: 0
   allowButtonHold: 0
   shotVolume: 0
+  fireEnabled: 1
+  iceEnabled: 1
+  airEnabled: 0
   cam: {fileID: 963194227}
   attackPoint: {fileID: 1328679048}
   muzzleFlash: {fileID: 0}
@@ -8954,6 +8980,10 @@ MonoBehaviour:
   iceShot: {fileID: 0}
   airShot: {fileID: 0}
   recharge: {fileID: 0}
+  defaultSwitch: {fileID: 0}
+  fireSwitch: {fileID: 0}
+  iceSwitch: {fileID: 0}
+  airSwitch: {fileID: 0}
 --- !u!54 &1825979174
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9154,6 +9184,9 @@ MonoBehaviour:
   bulletsPerTap: 4
   allowButtonHold: 1
   shotVolume: 0
+  fireEnabled: 1
+  iceEnabled: 1
+  airEnabled: 0
   cam: {fileID: 963194227}
   attackPoint: {fileID: 99919590}
   muzzleFlash: {fileID: 0}
@@ -9164,6 +9197,10 @@ MonoBehaviour:
   iceShot: {fileID: 0}
   airShot: {fileID: 0}
   recharge: {fileID: 0}
+  defaultSwitch: {fileID: 0}
+  fireSwitch: {fileID: 0}
+  iceSwitch: {fileID: 0}
+  airSwitch: {fileID: 0}
 --- !u!54 &1885455867
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9491,6 +9528,9 @@ MonoBehaviour:
   bulletsPerTap: 0
   allowButtonHold: 0
   shotVolume: 0
+  fireEnabled: 1
+  iceEnabled: 1
+  airEnabled: 0
   cam: {fileID: 963194227}
   attackPoint: {fileID: 1544341957}
   muzzleFlash: {fileID: 0}
@@ -9501,6 +9541,10 @@ MonoBehaviour:
   iceShot: {fileID: 0}
   airShot: {fileID: 0}
   recharge: {fileID: 0}
+  defaultSwitch: {fileID: 0}
+  fireSwitch: {fileID: 0}
+  iceSwitch: {fileID: 0}
+  airSwitch: {fileID: 0}
 --- !u!114 &2139832811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9704,7 +9748,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6775027364424684890, guid: 9eea015c00f5adb468625866846fb3d8, type: 3}
   m_PrefabInstance: {fileID: 825680251585936291}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5287963531781440755
+--- !u!1001 &4238269093477660012
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9712,55 +9756,55 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 2687944802870199194, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
+      propertyPath: m_Name
+      value: aid-defibrillator-green
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -6.92
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.835
+      value: 0.22
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 7.642948
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4677370945409699772, guid: c85610898327a7d448fd248a36edd621, type: 3}
+    - target: {fileID: 3316530736510523680, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677370945410126748, guid: c85610898327a7d448fd248a36edd621, type: 3}
-      propertyPath: m_Name
-      value: Player (Unused)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c85610898327a7d448fd248a36edd621, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 60c174c47e587174fa80a0c2ffc4579c, type: 3}
 --- !u!1001 &5548340275456451390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10184,7 +10228,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 147848245}
-  - {fileID: 5287963531781440755}
   - {fileID: 5548340275456451390}
   - {fileID: 505589757}
   - {fileID: 1468909671}
@@ -10209,3 +10252,4 @@ SceneRoots:
   - {fileID: 1292366654}
   - {fileID: 986343105}
   - {fileID: 673293240}
+  - {fileID: 4238269093477660012}

@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Refrence: https://www.youtube.com/watch?v=CE9VOZivb3I&t=793s
+
 public class LevelLoader : MonoBehaviour
 {
     public List<GameObject> targets;

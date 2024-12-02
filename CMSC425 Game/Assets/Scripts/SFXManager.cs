@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Refrence : https://www.youtube.com/watch?v=DU7cgVsU2rM&t=770s
+
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager instance;

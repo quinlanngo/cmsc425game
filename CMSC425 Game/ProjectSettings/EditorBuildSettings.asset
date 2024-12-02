@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/TutorialLevel.unity
+    guid: 44ac17a9794a1bd478d47393ba2f0910
+  - enabled: 1
+    path: Assets/Scenes/FireLevel.unity
+    guid: 7d4258571aa3c48b1a4327bf98bf4daa
+  - enabled: 1
+    path: Assets/Scenes/IceLevel.unity
+    guid: 1c6e584e11c881a4e89b42bd276be483
+  - enabled: 1
+    path: Assets/Scenes/AirLevel.unity
+    guid: 6e5061134a28a5645919fcdaacf0bf8a
   m_configObjects: {}

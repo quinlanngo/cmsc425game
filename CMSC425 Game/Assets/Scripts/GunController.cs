@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 
+//Refrence : https://www.youtube.com/watch?v=Ryi9JxbMCFM&list=PLh9SS5jRVLAleXEcDTWxBF39UjyrFc6Nb
+
 public class GunController : IInventoryItem
 {
     public Bullet bullet;

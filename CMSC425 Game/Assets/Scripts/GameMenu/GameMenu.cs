@@ -19,7 +19,7 @@ public class GameMenu : MonoBehaviour
         menuPanel.SetActive(false); // Hide menu by default
         gameObject.GetComponent<MenuSelector>().ShowText("");
 
-        mouseSensitivity.text = $"Mouse Sensitivity: 100%";
+        mouseSensitivity.text = $"Mouse Sensitivity: 500";
         gameVolume.text = $"Master Volume: 100%";
         gameVolume.text = $"Master Volume: 100%";
         gameVolume.text = $"Master Volume: 100%";
