@@ -17,7 +17,7 @@ public class GameMenu : MonoBehaviour
     private void Start()
     {
         menuPanel.SetActive(false); // Hide menu by default
-        gameObject.GetComponent<MenuSelector>().ShowDeathText(false);
+        gameObject.GetComponent<MenuSelector>().ShowText("");
 
         mouseSensitivity.text = $"Mouse Sensitivity: 100%";
         gameVolume.text = $"Master Volume: 100%";
@@ -42,6 +42,11 @@ public class GameMenu : MonoBehaviour
 
         }
     }
+    public void WinGame()
+    {
+        PauseGame();
+        FindObjectOfType<MenuSelector>().ShowText("You WONNN!!");
+    }
 
     public void PauseGame()
     {
@@ -65,7 +70,7 @@ public class GameMenu : MonoBehaviour
     {
         PauseGame();
         resumeButton.interactable = false; // Disable resume button on death
-        gameObject.GetComponent<MenuSelector>().ShowDeathText(true);
+        gameObject.GetComponent<MenuSelector>().ShowText("YOU DIED!!");
     }
 
     public void GoBackToLastCheckpoint()

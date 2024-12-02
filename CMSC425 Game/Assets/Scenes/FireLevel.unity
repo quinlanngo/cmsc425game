@@ -19177,6 +19177,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 724211662871275180, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 724211662871275180, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1104128828051585584, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -19201,6 +19209,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2312315567533248650, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312315567533248650, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312315567533248650, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3270941275560555997, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
       propertyPath: m_Name
       value: GameMenu
@@ -19219,6 +19239,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5876120710135134924, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063766863912846676, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063766863912846676, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063766863912846676, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7266770776030835791, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
@@ -19271,6 +19303,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7622421698463752671, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004541515567889234, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004541515567889234, guid: 8605ab06aa8a64c61bcb1dcaa555a963, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -68967,7 +69007,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8429393949149524965, guid: ee7adf7611b94894da8de1c797632318, type: 2}
-  m_audioClip: {fileID: 8300000, guid: fe586aceb4405304dac67874350570ed, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -114517,6 +114557,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[0].checkpointID
+      value: FIRE LEVEL - Bomb Push
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[1].checkpointID
+      value: FIRE LEVEL - Cannon Challenge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[0].triggerObject
+      value: 
+      objectReference: {fileID: 343838872}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[1].triggerObject
+      value: 
+      objectReference: {fileID: 435459810}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

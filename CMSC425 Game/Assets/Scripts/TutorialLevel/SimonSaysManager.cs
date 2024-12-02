@@ -139,6 +139,6 @@ public class SimonSaysManager : MonoBehaviour
                 Debug.LogWarning("EnemySpawner is not assigned.");
             }
         }
-        SaveLoadController.Instance.SaveAtCheckpoint("Simon");
+        SaveLoadController.Instance.SaveAtCheckpoint("Simon Says Puzzle - Tutorial Level");
     }
 }

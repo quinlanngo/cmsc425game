@@ -10,7 +10,7 @@ public class StartEndCutScene : MonoBehaviour
 
     private void Update()
     {
-        if(button == null)
+        if (button == null)
         {
             StartCoroutine(EndCutScene());
         }
@@ -21,11 +21,12 @@ public class StartEndCutScene : MonoBehaviour
         animator.SetTrigger("EndCutScene");
         yield return new WaitForSeconds(51);
         ShowGameWon();
-        
+
     }
 
     private void ShowGameWon()
     {
+        FindObjectOfType<GameMenu>().WinGame();
         // Show game won screen
     }
 }

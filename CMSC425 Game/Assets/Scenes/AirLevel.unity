@@ -12896,6 +12896,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[0].checkpointID
+      value: AIR LEVEL - Bomb Launch
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[1].checkpointID
+      value: AIR LEVEL - Platforming
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[2].checkpointID
+      value: AIR LEVEL - Cloud Movement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[0].triggerObject
+      value: 
+      objectReference: {fileID: 1255598022}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[1].triggerObject
+      value: 
+      objectReference: {fileID: 95403553}
+    - target: {fileID: 6109682153752309882, guid: f850a97ce432a4cf59fb7b76c1d1ccfd, type: 3}
+      propertyPath: checkpoints.Array.data[2].triggerObject
+      value: 
+      objectReference: {fileID: 594159414}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
