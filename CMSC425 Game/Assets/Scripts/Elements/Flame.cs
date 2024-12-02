@@ -7,8 +7,16 @@ public class Flame : MonoBehaviour
     public float burnLifetime = 3f;
     private float currentLifetime;
     private MonoBehaviour currentTarget;
+    AudioSource fireAudioSource;
 
     private bool isBurning = false;
+
+
+    private void Awake()
+    {
+        fireAudioSource = GetComponent<AudioSource>();
+        fireAudioSource.Play();
+    }
 
     // Set the next target, which can be a Burner or Bomb
     public void SetTarget(MonoBehaviour target)

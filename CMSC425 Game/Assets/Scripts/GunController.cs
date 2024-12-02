@@ -19,7 +19,7 @@ public class GunController : IInventoryItem
     // Static flags for element availability, just eable after each level complition
     public static bool fireEnabled = true;
     public static bool iceEnabled = true;
-    public static bool airEnabled = true;
+    public static bool airEnabled = false;
     // Note: No flag for default as it's always enabled
 
     // Dictionary to store bullets for each element

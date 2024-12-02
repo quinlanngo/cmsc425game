@@ -17,6 +17,7 @@ TagManager:
   - Water
   - EnemyBullet
   - Wind
+  - Stone
   layers:
   - Default
   - TransparentFX

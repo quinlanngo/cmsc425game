@@ -35,8 +35,11 @@ public class Water : ElementalObject
         
         //spawns the prefab at the location of the bullet.
         GameObject iceSheet = Instantiate(iceSheetPrefab, hitPoint, Quaternion.identity);
-
-        SFXManager.instance.PlaySFXClip(freeze, iceSheet.transform, 1f);
+        if (freeze != null)
+        {
+            SFXManager.instance.PlaySFXClip(freeze, iceSheet.transform, 1f);
+        }
+        
         // Set iceSheet 's rotation to match the surface normal
         iceSheet.transform.up = transform.up;
         // Set iceSheet parent to be water object
