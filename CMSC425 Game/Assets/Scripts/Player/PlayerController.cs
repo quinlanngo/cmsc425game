@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,16 +50,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask jumpableGround;
     public bool isGrounded; //whether or not the player is touching the ground
     public bool isCeiling; //whether or not the player is hitting a ceiling
+
+    [SerializeField] private Transform head;
+    [SerializeField] private LayerMask waterLayer;
+    public bool isDrowning;
     #endregion
-
-
 
     private void Start()
     {
         //Get the component references for the controllers
         characterController = GetComponent<CharacterController>();
-        
-        
     }
 
     //ALL INPUT SHOULD GO HERE
@@ -119,6 +120,9 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
         }
         HandleFootsteps();
+
+        CheckIfDrowning();
+        TakeDrowiningDamage();
     }
 
     //ALL PHYSICS STUFF SHOULD GO HERE
@@ -235,6 +239,29 @@ public class PlayerController : MonoBehaviour
         {
             // Reset timer if not moving
             footstepTimer = 0f;
+        }
+    }
+
+    private void CheckIfDrowning() {
+        if (head == null) {
+            return;
+        }
+
+        if (Physics.SphereCast(head.position, 0.1f, Vector3.down, out RaycastHit hitInfo, groundCheckDistance, waterLayer)) {
+            isDrowning = true;
+        } else {
+            isDrowning = false;
+        }
+
+    }
+    private void TakeDrowiningDamage() {
+        if (head == null) {
+            return;
+        }
+
+        if (isDrowning) {
+            PlayerHealth player = transform.GetComponent<PlayerHealth>();
+            player.TakeDamage(100);
         }
     }
 }
