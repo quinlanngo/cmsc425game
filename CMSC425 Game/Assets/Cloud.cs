@@ -8,7 +8,9 @@ public class Cloud : ElementalObject
     private LayerMask windLayerMask;    // Layer mask for Wind objects
     private Vector3 externalForce = Vector3.zero; // Force applied by bullets
     private float externalForceDampening = 5f;    // Dampening factor for force decay
-    private ParticleSystem particles;
+ 
+
+    [SerializeField] private AudioClip hiss;
 
     public override void InteractWithElement(GunController.Element element, Vector3 hitPoint, Vector3 hitNormal, Vector3 bulletDirection)
     {
@@ -21,10 +23,7 @@ public class Cloud : ElementalObject
     private void Start()
     {
         windLayerMask = LayerMask.GetMask("Wind");
-        particles = GetComponent<ParticleSystem>();
-        Renderer particleRenderer = particles.GetComponent<Renderer>();
-        particleRenderer.enabled = true;
-
+        SFXManager.instance.PlaySFXClip(hiss, transform, 1f);
     }
 
     private void Update()

@@ -101,10 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchForce: 20
   launchAngle: 40
-  lineResolution: 20
-  timeStep: 0.1
   tick: {fileID: 8300000, guid: f8c125fc6ade0034f9797aafaf8eb2d2, type: 3}
   explode: {fileID: 8300000, guid: 7390259f82aa9fe48a46bb699a27ae59, type: 3}
+  unPrime: {fileID: 8300000, guid: 39c2136622c763341b3e77565cbd09c2, type: 3}
 --- !u!135 &1727091323905472882
 SphereCollider:
   m_ObjectHideFlags: 0

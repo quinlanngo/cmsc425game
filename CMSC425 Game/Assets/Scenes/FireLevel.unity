@@ -52951,6 +52951,10 @@ MonoBehaviour:
   iceShot: {fileID: 8300000, guid: ebd3ee48e931df74eb9881d6aa810450, type: 3}
   airShot: {fileID: 8300000, guid: e5f00b8d1eace57498427597ec5d6002, type: 3}
   recharge: {fileID: 8300000, guid: 70b4d995668fec04fa094aa603577246, type: 3}
+  defaultSwitch: {fileID: 8300000, guid: 712ec24243b073746ad9aa0070439aca, type: 3}
+  fireSwitch: {fileID: 8300000, guid: 46e888deaabb18148954be94ce71824c, type: 3}
+  iceSwitch: {fileID: 8300000, guid: 558ee6d55b1308940868e37b05aa7906, type: 3}
+  airSwitch: {fileID: 8300000, guid: b88f887d855e45a4fa7802f33964f135, type: 3}
 --- !u!54 &1032112673
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -63923,9 +63927,9 @@ AudioSource:
   m_GameObject: {fileID: 1348834976}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8429393949149524965, guid: ee7adf7611b94894da8de1c797632318, type: 2}
   m_audioClip: {fileID: 8300000, guid: fe586aceb4405304dac67874350570ed, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -64019,9 +64023,9 @@ AudioSource:
   m_GameObject: {fileID: 1348834976}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3fc8cc1a4354bc642b9b21dbf9dae93b, type: 3}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: -8429393949149524965, guid: ee7adf7611b94894da8de1c797632318, type: 2}
+  m_audioClip: {fileID: 8300000, guid: d7440f273b823f34d9e69949944b932d, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -64115,9 +64119,9 @@ AudioSource:
   m_GameObject: {fileID: 1348834976}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f54576b2bd07d1940bcdbda30227f2b3, type: 3}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: -8429393949149524965, guid: ee7adf7611b94894da8de1c797632318, type: 2}
+  m_audioClip: {fileID: 8300000, guid: e1e1c56732c145f4e82178393809476f, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -64214,9 +64218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fa633a323354844ae5ebd48f95a1f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neutralTrack: {fileID: 1348834977}
-  fireTrack: {fileID: 1348834979}
-  iceTrack: {fileID: 1348834978}
+  neutralTrack: {fileID: 1348834979}
+  fireTrack: {fileID: 1348834978}
+  iceTrack: {fileID: 1348834977}
   airTrack: {fileID: 1348834982}
   fadeSpeed: 0.25
   maxVolume: 1
@@ -64246,9 +64250,9 @@ AudioSource:
   m_GameObject: {fileID: 1348834976}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8429393949149524965, guid: ee7adf7611b94894da8de1c797632318, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

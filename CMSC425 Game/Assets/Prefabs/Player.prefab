@@ -474,7 +474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3080281450346911506}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1612,6 +1612,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 4733826058567580400}
+  hurt: {fileID: 8300000, guid: 66b9957e940460542a5413cd8ac78269, type: 3}
+  die: {fileID: 8300000, guid: 4bd47c29747f7504b8ac522cc2884620, type: 3}
 --- !u!114 &4630896992572572990
 MonoBehaviour:
   m_ObjectHideFlags: 0

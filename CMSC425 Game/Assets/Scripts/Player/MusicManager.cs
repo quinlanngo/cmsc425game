@@ -51,6 +51,8 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
+
+        /*
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
@@ -63,7 +65,8 @@ public class MusicManager : MonoBehaviour
         {
             Debug.LogError("GunController reference is missing!");
             return;
-        }
+        } */
+
 
         // Get the current element from the GunController
         currentElement = gunController.currElement;

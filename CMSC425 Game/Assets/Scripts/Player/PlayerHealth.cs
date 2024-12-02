@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour
     private float currentHealth;   // Current player health
     public Slider healthBar;     // Health bar UI element
 
+    [SerializeField] private AudioClip hurt;
+    [SerializeField] private AudioClip die;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -48,6 +51,7 @@ public class PlayerHealth : MonoBehaviour
         }
         if (currentHealth <= maxHealth)
         {
+            SFXManager.instance.PlaySFXClip(hurt, transform, 1f);
             currentHealth -= damage;
         }
         else if (currentHealth > maxHealth)
@@ -70,6 +74,7 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player has died.");
 
+        SFXManager.instance.PlaySFXClip(die, transform, 1f);
         // Open the death menu via GameMenu script
         GameMenu gameMenu = FindObjectOfType<GameMenu>();
         if (gameMenu != null)

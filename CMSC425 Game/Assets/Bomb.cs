@@ -10,6 +10,7 @@ public class Bomb : MovableObject
 
     [SerializeField] private AudioClip tick;
     [SerializeField] private AudioClip explode;
+    [SerializeField] private AudioClip unPrime;
     private bool stopPrime;
     private bool isPrimed;
 
@@ -31,6 +32,11 @@ public class Bomb : MovableObject
         if (element == GunController.Element.Ice)
         {
             Debug.Log("Freezing");
+            if (unPrime != null)
+            {
+                SFXManager.instance.PlaySFXClip(unPrime, this.transform, 1f);
+            }
+            
             StopCoroutine(Prime());
             isPrimed = false;
             stopPrime = true;

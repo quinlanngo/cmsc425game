@@ -17,9 +17,9 @@ public class GunController : IInventoryItem
     public float shotVolume;
 
     // Static flags for element availability, just eable after each level complition
-    public static bool fireEnabled = true;
-    public static bool iceEnabled = true;
-    public static bool airEnabled = false;
+    public bool fireEnabled = true;
+    public bool iceEnabled = true;
+    public bool airEnabled = false;
     // Note: No flag for default as it's always enabled
 
     // Dictionary to store bullets for each element
@@ -47,6 +47,13 @@ public class GunController : IInventoryItem
     [SerializeField] private AudioClip iceShot;
     [SerializeField] private AudioClip airShot;
     [SerializeField] private AudioClip recharge;
+
+    [SerializeField] private AudioClip defaultSwitch;
+    [SerializeField] private AudioClip fireSwitch;
+    [SerializeField] private AudioClip iceSwitch;
+    [SerializeField] private AudioClip airSwitch;
+
+
 
     // Helper method to check if an element is enabled
     private bool IsElementEnabled(Element element) {
@@ -242,6 +249,23 @@ public class GunController : IInventoryItem
         if (IsElementEnabled(elements[currentIndex])) {
             currElement = elements[currentIndex];
             print("Switched to Element: " + currElement);
+        }
+        //play sound depending on the current element
+        if (currElement == Element.Default)
+        {
+            SFXManager.instance.PlaySFXClip(defaultSwitch, this.transform, 0.5f);
+        }
+        else if (currElement == Element.Fire)
+        {
+            SFXManager.instance.PlaySFXClip(fireSwitch, this.transform, 0.5f);
+        }
+        else if (currElement == Element.Ice)
+        {
+            SFXManager.instance.PlaySFXClip(iceSwitch, this.transform, 0.5f);
+        }
+        else if (currElement == Element.Air)
+        {
+            SFXManager.instance.PlaySFXClip(airSwitch, this.transform, 0.5f);
         }
     }
 

@@ -151,7 +151,7 @@ MonoBehaviour:
   impactEffect: {fileID: 0}
   whatIsEnemies:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 2048
   bounciness: 0.572
   useGravity: 0
   explosionRadius: 0.2
