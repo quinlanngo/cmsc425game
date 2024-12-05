@@ -21,7 +21,7 @@ public class pickUpController : MonoBehaviour
         SetItemState(equipped);
     }
 
-    private void SetItemState(bool isEquipped) {
+    public void SetItemState(bool isEquipped) {
         // Toggle all specified components
         if (componentsToToggle != null) {
             foreach (var component in componentsToToggle) {

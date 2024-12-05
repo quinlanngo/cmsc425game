@@ -13,6 +13,7 @@ public class LevelLoader : MonoBehaviour
     public TextMeshProUGUI loadingText;
     public Animator level;
     public Animator cutScene;
+    public GameMenu gameMenu;
     int SceneIndex;
 
     private void Start()
@@ -21,14 +22,22 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("Scene Index: " + SceneIndex);
         if (SceneIndex == 0)
         {
-            Debug.Log("Starting CutScene");
+            Debug.Log("Inside Scene Index 0");
             cutScene.SetTrigger("CutScene");
             StartCoroutine(WaitForCutScene(84));
-        } else
-        {
-            SetLoadingText(false, false);
-            level.SetTrigger("LevelStarted");
         }
+        else
+        {
+            Debug.Log("Skipping CutScene Starting Level");
+            StartLevel();
+        }
+    }
+
+    public void StartLevel()
+    {
+        gameMenu.ResumeGame();
+        SetLoadingText(false, false);
+        level.SetTrigger("LevelStarted");
     }
 
     // Update is called once per frame

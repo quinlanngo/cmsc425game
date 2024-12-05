@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class GameMenu : MonoBehaviour
 {
     public GameObject menuPanel;  // Panel containing the menu UI
+    public GameObject player;
     public Button resumeButton;        // Reference to Resume button
     public TextMeshProUGUI mouseSensitivity;
     public TextMeshProUGUI gameVolume;
     public TextMeshProUGUI sfxVolume;
     public TextMeshProUGUI backgroundVolume;
+    public LevelLoader levelLoader; 
+
 
     private bool isPaused = false;
 
@@ -55,6 +58,16 @@ public class GameMenu : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;  // Pause 
+        player.GetComponent<CharacterController>().enabled = false;
+        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<PlayerHealth>().enabled = false;
+        player.GetComponent<PlayerInteract>().enabled = false;
+        PlayerInventory item =  player.GetComponent<PlayerInventory>();
+        IInventoryItem currItem = item.GetCurrentItem();
+        pickUpController itemState = currItem.GetComponent<pickUpController>();
+        itemState.SetItemState(false);
+        player.GetComponent<PlayerUi>().enabled = false;
+
     }
 
     public void ResumeGame()
@@ -64,6 +77,15 @@ public class GameMenu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;  // Resume the game
+        player.GetComponent<CharacterController>().enabled = true;
+        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<PlayerHealth>().enabled = true;
+        player.GetComponent<PlayerInteract>().enabled = true;
+        PlayerInventory item = player.GetComponent<PlayerInventory>();
+        IInventoryItem currItem = item.GetCurrentItem();
+        pickUpController itemState = currItem.GetComponent<pickUpController>();
+        itemState.SetItemState(true);
+        player.GetComponent<PlayerUi>().enabled = true;
     }
 
     public void OpenMenuOnDeath()
@@ -71,6 +93,7 @@ public class GameMenu : MonoBehaviour
         PauseGame();
         resumeButton.interactable = false; // Disable resume button on death
         gameObject.GetComponent<MenuSelector>().ShowText("YOU DIED!!");
+        if(Input.GetKeyDown(KeyCode.Escape)){}
     }
 
     public void GoBackToLastCheckpoint()
@@ -128,8 +151,9 @@ public class GameMenu : MonoBehaviour
     public void RestartLevel()
     {
         ResumeGame();
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        int currentSceneName = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneName);
+        levelLoader.StartLevel();
     }
 
 
